@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from "react";
+import { Route, Routes } from "react-router-dom"
+import './assets/css/app.css'
+import Account from "./components/Account";
+import CreateServer from "./components/CreateServer";
+import ForgotPassword from "./components/ForgotPassword";
+import Index from "./components/Index";
+import Login from "./components/Login";
+import Manage from "./components/Manage";
+import Register from "./components/Register";
+import Topup from "./components/Topup";
+import VerifyOTP from "./components/VerifyOTP";
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Routes>
+          <Route exact path="/" element={<Login />}/>
+          <Route exact path="/register" element={<Register />}/>
+          <Route exact path="/forgot-password" element={<ForgotPassword />}/>
+          <Route exact path="/index" element={<Index />}/>
+          <Route exact path="/account" element={<Account />}/>
+          <Route exact path="/topup" element={<Topup />}/>
+          <Route exact path="/create-server" element={<CreateServer />}/>
+          <Route exact path="/manage" element={<Manage />}/>
+          <Route exact path="/verify-otp" element={<VerifyOTP />}/>
+        </Routes>
+      </div>
+    )
+  }
 }
 
 export default App;
