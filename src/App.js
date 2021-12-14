@@ -8,6 +8,7 @@ import Index from "./components/Index";
 import Login from "./components/Login";
 import Manage from "./components/Manage";
 import Register from "./components/Register";
+import TermOfService from "./components/TermOfService";
 import Topup from "./components/Topup";
 import VerifyOTP from "./components/VerifyOTP";
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
           <Route exact path="/create-server" element={<CreateServer />}/>
           <Route exact path="/manage" element={<Manage />}/>
           <Route exact path="/verify-otp" element={<VerifyOTP />}/>
+          <Route exact path="/term-of-service" element={<TermOfService />}/>
         </Routes>
       </div>
     )

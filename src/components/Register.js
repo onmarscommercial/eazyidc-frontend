@@ -33,7 +33,7 @@ class Register extends Component {
               <div className="form-check mb-4">
                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
                 <label className="form-check-label">
-                  ฉันได้อ่านและยอมรับ <Link to={"/"}>เงื่อนไขและข้อตกลงการให้บริการ</Link>
+                  ฉันได้อ่านและยอมรับ <Link to={"/term-of-service"}>เงื่อนไขและข้อตกลงการให้บริการ</Link>
                 </label>
               </div>
               <button type="submit" className="btn btn-primary btn-lg py-3 w-100 mb-3">สมัครสมาชิก</button>

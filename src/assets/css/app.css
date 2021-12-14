@@ -13335,3 +13335,34 @@ a {
       width: 200px; }
     .form-wrapper .form-box a {
       color: #221eaa; }
+
+.form-term-of-service {
+  width: 100%;
+  height: auto;
+  background-image: linear-gradient(43deg, #100D7A 0%, #0435C1 52%, #930DEF 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-term-of-service .form-term-of-service-box {
+  width: 1000px;
+}
+
+.form-term-of-service .form-term-of-service-box .sidebar-header img {
+  width: 200px;
+}
+
+.form-term-of-service .form-term-of-service-box a {
+  color: #221eaa;
+}
+
+.form-term-of-service-box-white {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px 0 rgba(46, 85, 197, 0.07);
+}
+
+div.firstp {
+  text-indent: 50px;
+}
