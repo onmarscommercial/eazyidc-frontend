@@ -11,7 +11,7 @@ class Register extends Component {
           </Link>
 
           <div className="box-white">
-            <form>
+            <form action="/verify-otp">
               <h4>สมัครสมาชิก</h4>
               <p className="mb-4">กรุณากรอกข้อมูลให้ถูกต้อง</p>
               <div className="form-floating mb-3">

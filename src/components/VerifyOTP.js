@@ -11,7 +11,7 @@ class VerifyOTP extends Component {
               <img src={Logo}  alt="eazyidc logo" />
           </Link>
           <div className="box-white">
-            <form>
+            <form action="/">
               <h4>ยืนยันเบอร์โทรศัพท์</h4>
               <p className="mb-4">ระบบได้ส่งรหัสยืนยันไปที่เบอร์โทรศัพท์ <b>0888123401</b></p>
               <div className="form-floating mb-3">

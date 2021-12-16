@@ -11,7 +11,7 @@ class Login extends Component {
           </Link>
 
           <div className="box-white">
-            <form>
+            <form action="/index">
               <h4 className="mb-4">เข้าสู่ระบบ</h4>
               <div className="form-floating mb-3">
                 <input type="email" className="form-control" id="email" placeholder="อีเมล"/>

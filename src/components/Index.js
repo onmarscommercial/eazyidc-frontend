@@ -36,7 +36,7 @@ class Index extends Component {
                   <p className="number"></p>
                 </div>
                 <div className="progress">
-                  <div className="progress-bar" role="progressbar" data-current="2" data-max="5"></div>
+                  <div className="progress-bar" role="progressbar" data-current="0" data-max="1"></div>
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@ class Index extends Component {
                   <p className="number"></p>
                 </div>
                 <div className="progress">
-                  <div className="progress-bar bg-info" role="progressbar" data-current="1" data-max="10"></div>
+                  <div className="progress-bar bg-info" role="progressbar" data-current="0" data-max="10"></div>
                 </div>
               </div>
             </div>
