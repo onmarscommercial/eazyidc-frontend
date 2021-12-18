@@ -3,6 +3,10 @@ import { Link } from "react-router-dom"
 import Logo from "../assets/images/logo.png"
 
 class ForgotPassword extends Component {
+  handleResetPassword() {
+
+  }
+  
   render() {
     return (
       <div className="form-wrapper">
