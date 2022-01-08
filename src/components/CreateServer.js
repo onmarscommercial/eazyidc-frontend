@@ -156,14 +156,6 @@ class CreateServer extends Component {
                             </div>
                             <hr/>
                             <div className="text-list">
-                                <span>ชั่วโมง</span>
-                                <span><b>0.37</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
-                                <span>วัน</span>
-                                <span><b>8.88</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
                                 <span>เดือน</span>
                                 <span><b>265</b> <small>฿</small></span>
                             </div>
@@ -192,14 +184,6 @@ class CreateServer extends Component {
                                 <span><b>1</b> GB</span>
                             </div>
                             <hr/>
-                            <div className="text-list">
-                                <span>ชั่วโมง</span>
-                                <span><b>0.37</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
-                                <span>วัน</span>
-                                <span><b>8.88</b> <small>฿</small></span>
-                            </div>
                             <div className="text-list">
                                 <span>เดือน</span>
                                 <span><b>265</b> <small>฿</small></span>
@@ -230,14 +214,6 @@ class CreateServer extends Component {
                             </div>
                             <hr />
                             <div className="text-list">
-                                <span>ชั่วโมง</span>
-                                <span><b>0.37</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
-                                <span>วัน</span>
-                                <span><b>8.88</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
                                 <span>เดือน</span>
                                 <span><b>265</b> <small>฿</small></span>
                             </div>
@@ -266,14 +242,6 @@ class CreateServer extends Component {
                                 <span><b>1</b> GB</span>
                             </div>
                             <hr />
-                            <div className="text-list">
-                                <span>ชั่วโมง</span>
-                                <span><b>0.37</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
-                                <span>วัน</span>
-                                <span><b>8.88</b> <small>฿</small></span>
-                            </div>
                             <div className="text-list">
                                 <span>เดือน</span>
                                 <span><b>265</b> <small>฿</small></span>
@@ -304,14 +272,6 @@ class CreateServer extends Component {
                             </div>
                             <hr />
                             <div className="text-list">
-                                <span>ชั่วโมง</span>
-                                <span><b>0.37</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
-                                <span>วัน</span>
-                                <span><b>8.88</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
                                 <span>เดือน</span>
                                 <span><b>265</b> <small>฿</small></span>
                             </div>
@@ -341,14 +301,6 @@ class CreateServer extends Component {
                             </div>
                             <hr />
                             <div className="text-list">
-                                <span>ชั่วโมง</span>
-                                <span><b>0.37</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
-                                <span>วัน</span>
-                                <span><b>8.88</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
                                 <span>เดือน</span>
                                 <span><b>265</b> <small>฿</small></span>
                             </div>
@@ -377,14 +329,6 @@ class CreateServer extends Component {
                                 <span><b>1</b> GB</span>
                             </div>
                             <hr/>
-                            <div className="text-list">
-                                <span>ชั่วโมง</span>
-                                <span><b>0.37</b> <small>฿</small></span>
-                            </div>
-                            <div className="text-list">
-                                <span>วัน</span>
-                                <span><b>8.88</b> <small>฿</small></span>
-                            </div>
                             <div className="text-list">
                                 <span>เดือน</span>
                                 <span><b>265</b> <small>฿</small></span>

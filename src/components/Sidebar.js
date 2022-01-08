@@ -5,6 +5,7 @@ import Server from "../assets/images/icons/server.svg"
 import Wallet from "../assets/images/icons/wallet.svg"
 import Profile from "../assets/images/icons/profile.svg"
 import Logout from "../assets/images/icons/logout.svg"
+import AuthService from "../services/auth"
 
 export default function Sidebar() {
   const location = useLocation();
@@ -23,6 +24,10 @@ export default function Sidebar() {
         });
       }
     }, 100);
+  }
+
+  const logOut = () => {
+    AuthService.logout()
   }
 
   useEffect(() => {
@@ -67,7 +72,7 @@ export default function Sidebar() {
             <img src={Profile} alt="Profile"/>
             <span>บัญชีผู้ใช้</span>
           </Link>
-          <Link to={"/"} className="menu-link mt-auto">
+          <Link to={"/"} className="menu-link mt-auto" onClick={logOut}>
             <img src={Logout} alt="Logout"/>
             <span>ออกจากระบบ</span>
           </Link>
