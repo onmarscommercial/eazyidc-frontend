@@ -5,6 +5,8 @@ import Logo from "../assets/images/logo.png"
 import AuthService from "../services/auth"
 
 export default function Register() {
+  const [firstname, setFirstname] = useState("")
+  const [lastname, setLastname] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [verifyPassword, setVerifyPassword] = useState("")
@@ -17,7 +19,7 @@ export default function Register() {
     if (checked === true) {
       if (checkPassword(password) === true) {
         if (password === verifyPassword) {
-          AuthService.register(email, password, phone).then((res) => {
+          AuthService.register(email, password, phone, firstname, lastname).then((res) => {
             Swal.fire({
               icon: 'success',
               title: res.message
@@ -72,6 +74,14 @@ export default function Register() {
           <form onSubmit={handleRegister}>
             <h4>สมัครสมาชิก</h4>
             <p className="mb-4">กรุณากรอกข้อมูลให้ถูกต้อง</p>
+            <div className="form-floating mb-3">
+              <input type="text" className="form-control" id="firstname" placeholder="ชื่อ" value={firstname} onChange={e => setFirstname(e.target.value)} />
+              <label htmlFor="firstname">ชื่อ</label>
+            </div>
+            <div className="form-floating mb-3">
+              <input type="text" className="form-control" id="lastname" placeholder="นามสกุล" value={lastname} onChange={e => setLastname(e.target.value)} />
+              <label htmlFor="lastname">นามสกุล</label>
+            </div>
             <div className="form-floating mb-3">
               <input type="email" className="form-control" id="email" placeholder="อีเมล" value={email} onChange={e => setEmail(e.target.value)} />
               <label htmlFor="email">อีเมล</label>

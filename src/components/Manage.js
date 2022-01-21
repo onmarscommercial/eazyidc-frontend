@@ -25,12 +25,12 @@ class Manage extends Component {
                       <h2 className="text-primary mb-0">52.25 <small className="fs-6">%</small></h2>
                   </div>
               </div>
-              <div className="col-lg-4 custom-padding">
+              {/* <div className="col-lg-4 custom-padding">
                   <div className="box-white">
                       <p className="mb-1">ค่าใช้จ่ายปัจจุบัน</p>
                       <h2 className="text-primary mb-0">2,340.34 <small className="fs-6">฿</small></h2>
                   </div>
-              </div>
+              </div> */}
           </div>
 
           <div className="row custom-row">

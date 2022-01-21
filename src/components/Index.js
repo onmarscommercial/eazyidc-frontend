@@ -1,13 +1,45 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import AddServer from "../assets/images/add-server.png"
 import Sidebar from "./Sidebar";
-class Index extends Component {
-  componentDidMount() {
-    this.generateBar();
-  }
+import AuthService from "../services/auth"
+import Swal from "sweetalert2";
 
-  generateBar = () => {
+export default function Index() {
+  const [serverCurrent, setServerCurrent] = useState("0");
+  const [serverMax, setServerMax] = useState("1")
+
+  let navigate = useNavigate()
+
+  useEffect(() => {
+    let user = AuthService.getCurrentUser()
+
+    if (!user) {
+      navigate('/')
+    } else {
+      if (user.profile.status === 0) {
+        setServerCurrent(user.profile.serverUnit)
+        Swal.fire({
+          icon: 'warning',
+          title: 'กรุณายืนยันตัวตนของคุณ',
+          html: '<div class="text-start">กรุณายืนยันตัวตนของคุณเพื่อรับจำนวนสำหรับสร้างเซิร์ฟเวอร์เพิ่มเติม</div>',
+          confirmButtonColor: '#221eaa',
+          confirmButtonText: 'ยืนยัน'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/account")
+          }
+        })
+      } else {
+        setServerMax("3")
+        setServerCurrent(user.profile.serverUnit)
+      }
+    }
+
+    generateBar()
+  }, [navigate])
+
+  const generateBar = () => {
     const bars = document.querySelectorAll('.progress-bar')
 
     if (bars) {
@@ -22,9 +54,8 @@ class Index extends Component {
     }
   }
 
-  render() {
-    return (
-      <div className="wrapper">
+  return (
+    <div className="wrapper">
         <Sidebar/>
         <div id="content">
           <h3 className="mb-4">สถานะ</h3>
@@ -36,7 +67,7 @@ class Index extends Component {
                   <p className="number"></p>
                 </div>
                 <div className="progress">
-                  <div className="progress-bar" role="progressbar" data-current="0" data-max="1"></div>
+                  <div className="progress-bar" role="progressbar" data-current={serverCurrent} data-max={serverMax} ></div>
                 </div>
               </div>
             </div>
@@ -120,8 +151,5 @@ class Index extends Component {
           </div>
         </div>
       </div>
-    )
-  }
-}
-
-export default Index;
+  )
+};

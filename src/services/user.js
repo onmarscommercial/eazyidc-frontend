@@ -6,8 +6,8 @@ class UserService {
     return axios.get("account/balance", { headers: authHeader() })
   }
 
-  getProfile() {
-    return axios.get("account/profile", { headers: authHeader() })
+  getPackage() {
+    return axios.get("account/package", { headers: authHeader() })
   }
 }
 

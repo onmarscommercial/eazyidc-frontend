@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../assets/images/logo.png"
 import Server from "../assets/images/icons/server.svg"
@@ -6,11 +6,13 @@ import Wallet from "../assets/images/icons/wallet.svg"
 import Profile from "../assets/images/icons/profile.svg"
 import Logout from "../assets/images/icons/logout.svg"
 import AuthService from "../services/auth"
+import UserService from "../services/user"
 
 export default function Sidebar() {
   const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
+  let [currentBalance, setCurrentBalance] = useState(0)
   
   const toggleMenuMobile = () => {
     setTimeout(() => {
@@ -30,8 +32,18 @@ export default function Sidebar() {
     AuthService.logout()
   }
 
+  const getBalance = () => {
+    UserService.getBalance().then((res) => {
+      if (res.data.code === 0) {
+        setCurrentBalance(res.data.result.balance)
+      }
+    })
+  }
+
   useEffect(() => {
     toggleMenuMobile();
+    const interval = setInterval(() => getBalance(), 500)
+    return () => clearInterval(interval)
   })
 
   return (
@@ -55,8 +67,8 @@ export default function Sidebar() {
         <div className="amount-wrapper">
           <p>ยอดเงินคงเหลือ</p>
           <h2>
-              <span>0.00</span>
-              <small>฿</small>
+              <span>{currentBalance.toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
+              <small> ฿</small>
           </h2>
         </div>
         <div className="main-menu">

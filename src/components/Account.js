@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Sidebar from "./Sidebar";
 import AuthService from "../services/auth"
 import Swal from "sweetalert2";
+import { Navigate } from "react-router-dom";
+import { faUserShield, faUserCheck, faKey, faIdCard } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 class Account extends Component {
   constructor(props) {
     super(props)
@@ -11,6 +15,7 @@ class Account extends Component {
 
     this.state = {
       currentUser: AuthService.getCurrentUser(),
+      isLogin: AuthService.getStatusLogin(),
       oldPassword: "",
       newPassword: "",
       verifyNewPassword: ""
@@ -74,7 +79,11 @@ class Account extends Component {
   }
 
   render() {
-    let { currentUser } = this.state
+    let { currentUser, isLogin } = this.state
+
+    if (!isLogin) {
+      return <Navigate to="/" />
+    }
 
     return (
       <div className="wrapper">
@@ -82,64 +91,109 @@ class Account extends Component {
         <div id="content">
           <div className="row justify-content-center">
             <div className="col-xl-7">
-              <div className="row">
-                <div className="col-12">
-                  <h3 className="mb-4">บัญชีผู้ใช้</h3>
+              <nav>
+                <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">
+                    <FontAwesomeIcon icon={faUserShield} /> บัญชีผู้ใช้
+                  </button>
+                  <button className="nav-link" id="nav-verify-tab" data-bs-toggle="tab" data-bs-target="#nav-verify" type="button" role="tab" aria-controls="nav-verify" aria-selected="false">
+                    <FontAwesomeIcon icon={faUserCheck} /> การยืนยันตัวตน
+                  </button>
+                  <button className="nav-link" id="nav-sshkey-tab" data-bs-toggle="tab" data-bs-target="#nav-sshkey" type="button" role="tab" aria-controls="nav-sshkey" aria-selected="false">
+                    <FontAwesomeIcon icon={faKey} /> SSH Keys
+                  </button>
                 </div>
-                <div className="col-xl-5">
-                  <div className="card mb-2">
+              </nav>
+              <div className="tab-content" id="nav-tabContent">
+                <div className="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                  <div className="card-no-top-border">
                     <div className="card-body">
-                    <h5 className="mb-4"><b><small>ข้อมูลส่วนตัว</small></b></h5>
-                    <div className="row">
-                      <p className="col-5 text-end text-secondary mb-2">อีเมล</p>
-                      <p className="col col-xl-7 mb-2">{currentUser.profile.email}</p>
-                    </div>
-                    <div className="row">
-                      <p className="col-5 text-end text-secondary mb-2">รหัสผ่าน</p>
-                      <p className="col col-xl-7 mb-2">{"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"}</p>
-                    </div>
-                    <div className="row">
-                      <p className="col-5 text-end text-secondary mb-2">เบอร์โทรศัพท์</p>
-                      <p className="col col-xl-7 mb-2">{currentUser.profile.phone}</p>
-                    </div>
-                    <button type="button" className="btn btn-primary btn-lg w-100 mt-3" data-bs-toggle="modal" data-bs-target="#changePassword">เปลี่ยนรหัสผ่าน</button>
+                      <h5 className="card-title">ข้อมูลส่วนตัว</h5>
+                      <div className="row">
+                        <p className="col-5 text-end text-secondary mb-2">อีเมล</p>
+                        <p className="col col-xl-7 mb-2">{currentUser.profile.email}</p>
+                      </div>
+                      <div className="row">
+                        <p className="col-5 text-end text-secondary mb-2">รหัสผ่าน</p>
+                        <p className="col col-xl-7 mb-2">{"\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"}</p>
+                      </div>
+                      <div className="row">
+                        <p className="col-5 text-end text-secondary mb-2">เบอร์โทรศัพท์</p>
+                        <p className="col col-xl-7 mb-2">{currentUser.profile.phone}</p>
+                      </div>
+                      <button type="button" className="btn btn-primary btn-lg w-100 mt-3" data-bs-toggle="modal" data-bs-target="#changePassword">เปลี่ยนรหัสผ่าน</button>
                   
-                    <div className="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
-                      <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h5 className="modal-title">เปลี่ยนรหัสผ่าน</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div className="modal-body">
-                            <form>
-                              <div className="form-floating mb-3">
-                                <input type="password" className="form-control" id="old-password" placeholder="รหัสผ่านเดิม" value={this.state.oldPassword} onChange={this.onChangeOldPassword} />
-                                <label htmlFor="old-password">รหัสผ่านเดิม</label>
-                              </div>
-                              <div className="form-floating mb-3">
-                                <input type="password" className="form-control" id="new-password" placeholder="รหัสผ่านใหม่" value={this.state.newPassword} onChange={this.onChangeNewPassword} />
-                                <label htmlFor="new-password">รหัสผ่านใหม่</label>
-                              </div>
-                              <div className="form-floating mb-3">
-                                <input type="password" className="form-control" id="verify-new-password" placeholder="ยืนยันรหัสผ่านใหม่" value={this.state.verifyNewPassword} onChange={this.onChangeVerifyNewPassword} />
-                                <label htmlFor="verify-new-password">ยืนยันรหัสผ่านใหม่</label>
-                              </div>
-                              <button type="button" className="btn btn-primary btn-lg w-100 mb-3">เปลี่ยนรหัสผ่าน</button>
-                              <button type="button" className="btn btn-outline-primary btn-lg w-100" data-bs-dismiss="modal">ยกเลิก</button>
-                            </form>
+                      <div className="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
+                        <div className="modal-dialog modal-dialog-centered">
+                          <div className="modal-content">
+                            <div className="modal-header">
+                              <h5 className="modal-title">เปลี่ยนรหัสผ่าน</h5>
+                              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body">
+                              <form>
+                                <div className="form-floating mb-3">
+                                  <input type="password" className="form-control" id="old-password" placeholder="รหัสผ่านเดิม" value={this.state.oldPassword} onChange={this.onChangeOldPassword} />
+                                  <label htmlFor="old-password">รหัสผ่านเดิม</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                  <input type="password" className="form-control" id="new-password" placeholder="รหัสผ่านใหม่" value={this.state.newPassword} onChange={this.onChangeNewPassword} />
+                                  <label htmlFor="new-password">รหัสผ่านใหม่</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                  <input type="password" className="form-control" id="verify-new-password" placeholder="ยืนยันรหัสผ่านใหม่" value={this.state.verifyNewPassword} onChange={this.onChangeVerifyNewPassword} />
+                                  <label htmlFor="verify-new-password">ยืนยันรหัสผ่านใหม่</label>
+                                </div>
+                                <button type="button" className="btn btn-primary btn-lg w-100 mb-3">เปลี่ยนรหัสผ่าน</button>
+                                <button type="button" className="btn btn-outline-primary btn-lg w-100" data-bs-dismiss="modal">ยกเลิก</button>
+                              </form>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div className="tab-pane fade" id="nav-verify" role="tabpanel" aria-labelledby="nav-verify-tab">
+                  <div className="card-no-top-border">
+                    <div className="card-body">
+                      <h5 className="card-title text-center">
+                        <FontAwesomeIcon icon={faIdCard} size="2x"/>
+                        <p className="mt-2">การยืนยันตัวตน</p>
+                      </h5>
+                      <div>
+                        <form>
+                          <div className="text-center mt-2">
+                            เอกสารยืนยันตัวตนของคุณ เช่น บัตรประจำตัวประชาชน, ใบขับขี่ หรือ พาสปอร์ต
+                          </div>
+                          <div className="row mt-4 ms-5 me-5">
+                            <div className="col-md">
+                              <input type="file" className="form-control"/>
+                            </div>
+                          </div>
+                          <div className="row mt-5">
+                            <div className="text-center">* เมื่อยืนยันตัวตนสำเร็จ คุณจะสามารถสร้างได้สูงสุด 3 เซิร์ฟเวอร์ *</div>
+                            <div className="col-md mt-4">
+                              <div className="form-check">
+                                <input className="form-check-input" type="checkbox" value="" id="accept" />
+                                <label className="form-check-label" for="accept">ฉันยอมรับว่าเอกสารถูกต้อง และตกลงให้ความยินยอมรวมถึงอนุญาตตามเงื่อนไขที่กำหนดทั้งหมด</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-md">
+                              <button type="button" className="btn btn-primary btn-lg w-100 mt-3">ยืนยัน</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div className="col-xl-7">
-                  <div className="card">
+                <div className="tab-pane fade" id="nav-sshkey" role="tabpanel" aria-labelledby="nav-sshkey-tab">
+                  <div className="card-no-top-border">
                     <div className="card-body">
-                      <h5 className="mb-4"><b><small>SSH Keys</small></b></h5>
+                      <h5 className="card-title">SSH Keys</h5>
 
                       {/* กรณีไม่มี ssh key */}
                       {/* <p className="text-secondary text-center mb-3">ไม่พบข้อมูล SSH Keys</p> */}

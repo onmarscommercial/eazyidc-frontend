@@ -14,6 +14,7 @@ class AuthService {
           status: res.data.status,
           message: res.data.message
         }))
+        localStorage.setItem("login", true);
       } else {
         localStorage.setItem("status", JSON.stringify({
           code: res.data.code,
@@ -29,6 +30,7 @@ class AuthService {
   logout() {
     localStorage.removeItem("profile")
     localStorage.removeItem("status")
+    localStorage.removeItem("login")
   }
 
   getCurrentUser() {
@@ -39,9 +41,13 @@ class AuthService {
     return JSON.parse(localStorage.getItem("status"))
   }
 
-  register(email, password, phone) {
+  getStatusLogin() {
+    return JSON.parse(localStorage.getItem("login"))
+  }
+
+  register(email, password, phone, firstname, lastname) {
     return axios.post("account/register", {
-      email, password, phone
+      email, password, phone, firstname, lastname
     }).then((res) => {
       if (res.data.code === 0) {
 
@@ -55,6 +61,10 @@ class AuthService {
 
   changePassword(password1, password2) {
     return axios.post("account/change_pwd", { password1, password2 }, { headers: authHeader() })
+  }
+
+  verify() {
+
   }
 }
 

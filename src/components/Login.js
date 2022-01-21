@@ -15,28 +15,21 @@ export default function Login() {
 
   const handleLogin = e => {
     e.preventDefault();
-    //if (email && password) {
-      AuthService.login(email, password).then(() => {
-        let resultLogin = AuthService.getResultLogin()
-        if (resultLogin.code === 0) {
-          navigate('/index')
-          Swal.fire({
-            icon: 'success',
-            title: resultLogin.message
-          })
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: resultLogin.message
-          })
-        }
-      })
-    // } else {
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'กรุณาระบุอีเมล์ และรหัสผ่าน'
-    //   })
-    // }
+    AuthService.login(email, password).then(() => {
+      let resultLogin = AuthService.getResultLogin()
+      if (resultLogin.code === 0) {
+        navigate('/index')
+        Swal.fire({
+          icon: 'success',
+          title: resultLogin.message
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: resultLogin.message
+        })
+      }
+    })
   }
 
   return (
