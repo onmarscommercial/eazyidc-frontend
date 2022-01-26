@@ -59,8 +59,8 @@ class AuthService {
     })
   }
 
-  changePassword(password1, password2) {
-    return axios.post("account/change_pwd", { password1, password2 }, { headers: authHeader() })
+  changePassword(newPassword, verifyNewPassword) {
+    return axios.post("account/change_pwd", { newPassword, verifyNewPassword }, { headers: authHeader() })
   }
 
   verify() {

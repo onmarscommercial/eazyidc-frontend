@@ -3,14 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import AuthService from "../services/auth"
 import UserService from "../services/user"
+import Swal from "sweetalert2";
 
 export default function CreateServer() {
     const [os, setOs] = useState("Window Server")
     const [versionOs, setVersionOs] = useState("2012 R2")
     const [ssdType, setSsdType] = useState("SSD NVME")
     const [packageList, setPackageList] = useState([])
-    const [hostName, setHostname] = useState("eazyidc-258Kjx")
+    const [packages, setPackages] = useState(0)
+    const [hostName, setHostname] = useState("")
     const [userName, setUsername] = useState("Administrator")
+    const [password, setPassword] = useState("")
 
     let navigate = useNavigate()
 
@@ -22,7 +25,8 @@ export default function CreateServer() {
         } 
 
         getPackage()
-    })
+        setHostname(randomText(6))
+    }, [navigate])
 
     const onOsChange = e => {
         setOs(e.target.value)
@@ -36,6 +40,10 @@ export default function CreateServer() {
         setSsdType(e.target.value)
     }
 
+    const onPackageChange = e => {
+        setPackages(e.target.value)
+    }
+
     const getPackage = () => {
         UserService.getPackage().then((res) => {
             if (res.data.code === 0) {
@@ -44,10 +52,50 @@ export default function CreateServer() {
         })
     }
 
+    const randomText = (length) => {
+        var result = 'eazyidc-';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        var charactersLength = characters.length
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength))
+        }
+        return result
+    }
+
     const handleCreateServer = e => {
         e.preventDefault();
-
-        console.log("os", os, "versionOs", versionOs, "ssdType", ssdType)
+        if (packages !== "" && password !== "") {
+            UserService.createServer(os, versionOs, ssdType, packages, hostName, userName, password).then((res) => {
+                if (res.data.code === 0) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'สร้างเซิร์ฟเวอร์สำเร็จ'
+                    })
+                    navigate('/index')
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'สร้างเซิร์ฟเวอร์ไม่สำเร็จ'
+                    })
+                }
+            })
+            console.log("os:", os, "versionOs:", versionOs, "ssdType:", ssdType, "packages:", packages, "hostName:", hostName, "userName:", userName, "password:", password)
+        } else if (packages === "" && password !== "") {
+            Swal.fire({
+                icon: "error",
+                title: "กรุณาเลือกแพ็คเกจ"
+            })
+        } else if (packages !== "" && password === "") {
+            Swal.fire({
+                icon: "error",
+                title: "กรุณาระบุ Password"
+            })
+        } else {
+            Swal.fire({
+                icon: "error",
+                html: "<p class='fs-3'>กรุณาเลือกแพ็คเกจและระบุ Password</p>"
+            })
+        }
     }
 
     return (
@@ -170,15 +218,15 @@ export default function CreateServer() {
             <div className="box-white">
               <p>เลือกแพ็คเกจ</p>
               <div className="row">
-              {packageList && packageList.map((packages, index) => (
+                {packageList && packageList.map((packages, index) => (
                 <div className="col-6 col-md-4 col-xl-2" key={index}>
                     <div className="package-card">
-                        <input type="radio" className="btn-check" name="options-plan" id="options-plan-1" value={packages.packageId} autoComplete="off" />
-                        <label className="btn btn-outline-primary w-100" htmlFor="options-plan-1">
+                        <input type="radio" className="btn-check" name="options-plan" id={`options-plan-${index+1}`} value={packages.packageId} onChange={onPackageChange} autoComplete="off" />
+                        <label className="btn btn-outline-primary w-100" htmlFor={`options-plan-${index+1}`}>
                             <h6>Plan {index+1}</h6>
                             <div className="text-list">
                                 <span>CPU</span>
-                                <span><b>{packages.cpu_unit}</b> vCPU</span>
+                                <span><b>{packages.cpu_unit}</b> {packages.cpu_unit < 2 ? "vCPU" : "vCPUs"} </span>
                             </div>
                             <div className="text-list">
                                 <span>Memory</span>
@@ -413,19 +461,19 @@ export default function CreateServer() {
               <div className="row flex-column">
                 <div className="col-xl-4">
                     <div className="form-floating mb-3">
-                        <input type="text" className="form-control" id="hostname" placeholder="Hostname" defaultValue={hostName} />
+                        <input type="text" className="form-control" id="hostname" placeholder="Hostname" value={hostName} onChange={e => setHostname(e.target.value)} />
                         <label htmlFor="hostname">Hostname</label>
                     </div>
                 </div>
                 <div className="col-xl-4">
                     <div className="form-floating mb-3">
-                        <input type="text" className="form-control" id="username" placeholder="Username" defaultValue={userName} disabled/>
+                        <input type="text" className="form-control" id="username" placeholder="Username" value={os === "Window Server" ? userName : "root"} onChange={e => setUsername(e.target.value)} disabled/>
                         <label htmlFor="username">Username</label>
                     </div>
                 </div>
                 <div className="col-xl-4">
                     <div className="form-floating mb-3">
-                        <input type="password" className="form-control" id="password" placeholder="Password"/>
+                        <input type="password" className="form-control" id="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                         <label htmlFor="password">Password</label>
                         <small className="text-danger d-block mt-2">*โปรดจัดเก็บรหัสผ่านของท่านไว้ เนื่องจากระบบไม่สามารถกู้คืนได้</small>
                     </div>

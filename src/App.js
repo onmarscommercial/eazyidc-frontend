@@ -23,7 +23,7 @@ class App extends Component {
           <Route exact path="/account" element={<Account />}/>
           <Route exact path="/topup" element={<Topup />}/>
           <Route exact path="/create-server" element={<CreateServer />}/>
-          <Route exact path="/manage" element={<Manage />}/>
+          <Route exact path="/manage/:serverId" element={<Manage />}/>
           <Route exact path="/verify-otp" element={<VerifyOTP />}/>
           <Route exact path="/term-of-service" element={<TermOfService />}/>
         </Routes>
