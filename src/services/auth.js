@@ -46,25 +46,11 @@ class AuthService {
   }
 
   register(email, password, phone, firstname, lastname) {
-    return axios.post("account/register", {
-      email, password, phone, firstname, lastname
-    }).then((res) => {
-      if (res.data.code === 0) {
-
-      } else {
-
-      }
-
-      return res.data
-    })
+    return axios.post("account/register", { email, password, phone, firstname, lastname })
   }
 
   changePassword(newPassword, verifyNewPassword) {
     return axios.post("account/change_pwd", { newPassword, verifyNewPassword }, { headers: authHeader() })
-  }
-
-  verify() {
-
   }
 }
 

@@ -6,14 +6,14 @@ import Swal from "sweetalert2";
 import { Navigate, useNavigate } from "react-router-dom";
 import { faUserShield, faUserCheck, faKey, faIdCard } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import FormData from "form-data";
+import axios from "../config/axios"
 
 export default function Account() {
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [verifyNewPassword, setVerifyNewPassword] = useState("")
   const [currentUser, setCurrentUser] = useState(undefined)
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState('')
   const [checked, setChecked] = useState(false)
   const [nameSshKey, setNameSshKey] = useState("")
   const [publicSshKey, setPublicSshKey] = useState("")
@@ -85,41 +85,40 @@ export default function Account() {
     setFile(e.target.files[0])
   }
 
-  const handleConfirmVerify = async (e) => {
+  const handleConfirmVerify = e => {
     e.preventDefault()
 
+    const formData = new FormData()
+    let type = file.type;
+    const typeSplit = type.split('/')
+    const newName = currentUser.profile.accountId + `.${typeSplit[1]}`;
+    
+    formData.append('file', file, newName)
+    formData.append('email', currentUser.profile.email)
+    formData.append('accountId', currentUser.profile.accountId)
 
-    // if (checked === true) {
-    //   if (file) {
-    //     const data = new FormData()
-    //     data.append("file", file)
-    //     data.append("fileName", fileName)
-    //     console.log("data:", data)
-    //     UserService.verify(data).then((res) => {
-    //       console.log(res);
-    //       // if (res.data.code === 0) {
-    //       //   alert("success")
-    //       //   console.log(res);
-    //       // } else {
-    //       //   alert("fail")
-    //       // }
-    //     })
-
-        
-
-    //     //alert(fileName)
-    //   } else {
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'กรุณาเพิ่มไฟล์'
-    //     })
-    //   }
-    // } else {
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'โปรดคลิกยอมรับ เพื่อดำเนินการต่อไป'
-    //   })
-    // }
+    const config = {
+      headers: { 'content-type': 'multipart/form-data' }
+    }
+    
+    if (checked === true) {
+      if (file) {
+        axios.post("account/verify-identity", formData, config).then(res => {
+          navigate('/index')
+          console.log(res.data);
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'กรุณาเพิ่มไฟล์'
+        })
+      }
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'โปรดคลิกยอมรับ เพื่อดำเนินการต่อไป'
+      })
+    }
   }
 
   if (currentUser) {
@@ -204,13 +203,13 @@ export default function Account() {
                       <p className="mt-2">การยืนยันตัวตน</p>
                     </h5>
                     <div>
-                      <form onSubmit={handleConfirmVerify}>
+                      <form onSubmit={handleConfirmVerify} encType="multipart/form-data" >
                         <div className="text-center mt-2">
                           เอกสารยืนยันตัวตนของคุณ เช่น บัตรประจำตัวประชาชน, ใบขับขี่ หรือ พาสปอร์ต
                         </div>
                         <div className="row mt-4 ms-5 me-5">
                           <div className="col-md">
-                            <input type="file" id="file" name="file" className="form-control" onChange={onChangeFile} />
+                            <input type="file" id="file" name="file" className="form-control" onChange={onChangeFile} accept=".png,.jpg,.pdf"/>
                           </div>
                         </div>
                         <div className="row mt-5">

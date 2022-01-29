@@ -68,12 +68,43 @@ export default function Index() {
     })
   }
 
-  const restartServer = () => {
-    alert("restart")
+  const createServer = () => {
+    if (serverCurrent === serverMax) {
+      Swal.fire({
+        icon: 'error',
+        html: '<div>ไม่สามารถสร้างเซิร์ฟเวอร์ได้ <br>เนื่องจากคุณมีเซิร์ฟเวอร์ครบจำนวนที่กำหนดแล้ว</div>'
+      })
+    } else {
+      navigate('/create-server')
+    }
   }
 
-  const shutdownServer = () => {
-    alert("shutdown")
+  const shutdownServer = (serverId) => {
+    UserService.shutdownServer(serverId).then((res) => {
+      if (res.data.code === 0) {
+        Swal.fire({
+          icon: 'success',
+          title: res.data.message
+        })
+        getServer()
+      }
+    })
+  }
+
+  const openServer = (serverId) => {
+    UserService.openServer(serverId).then((res) => {
+      if (res.data.code === 0) {
+        Swal.fire({
+          icon: 'success',
+          title: res.data.message
+        })
+        getServer()
+      }
+    })
+  }
+
+  const restartServer = (e) => {
+    alert("restart")
   }
 
   const consoleServer = () => {
@@ -116,7 +147,9 @@ export default function Index() {
             <div className="ms-auto align-self-md-center mt-3 mt-lg-0">
               <Link to={"/manage/" + server.serverId} className="btn btn-primary mobile-w-100 me-2">จัดการ</Link>
               <button className="btn btn-warning d-none d-md-inline me-2" onClick={restartServer}>รีสตาร์ท</button>
-              <button className={server.status === 1 ? "btn btn-danger d-none d-md-inline me-2" : "btn btn-success d-none d-md-inline me-2"} onClick={shutdownServer}>{server.status === 1 ?"ปิดเครื่อง" : "เปิดเครื่อง"}</button>
+              <button className={server.status === 1 ? "btn btn-danger d-none d-md-inline me-2" : "btn btn-success d-none d-md-inline me-2"} onClick={server.status === 1 ? () => shutdownServer(server.serverId) : () => openServer(server.serverId)}>
+                {server.status === 1 ?"ปิดเครื่อง" : "เปิดเครื่อง"}
+              </button>
               <button className="btn btn-dark d-none d-md-inline" onClick={consoleServer}>คอนโซล</button>
             </div>
           </div>
@@ -158,7 +191,7 @@ export default function Index() {
 
           <div className="d-flex align-items-center justify-content-between mb-4">
             <h3 className="mb-0">เซิร์ฟเวอร์</h3>
-            <Link to={"/create-server"} className="btn btn-primary">สร้างเซิร์ฟเวอร์</Link>
+            <button type="button" className="btn btn-primary" onClick={createServer}>สร้างเซิร์ฟเวอร์</button>
           </div>
 
           {isHaveServer}

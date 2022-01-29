@@ -21,6 +21,22 @@ class UserService {
   getServerDetail(serverId) {
     return axios.get(`account/server-detail/${serverId}`, { headers: authHeader() })
   }
+
+  openServer(serverId) {
+    return axios.post("account/open-server", { serverId }, { headers: authHeader() })
+  }
+
+  shutdownServer(serverId) {
+    return axios.post("account/shutdown-server", { serverId }, { headers: authHeader() })
+  }
+
+  restartServer() {
+
+  }
+
+  consoleServer() {
+
+  }
 }
 
 export default new UserService();

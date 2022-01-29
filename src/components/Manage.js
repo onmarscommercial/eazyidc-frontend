@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import AuthService from "../services/auth"
 import UserService from "../services/user"
+import Swal from "sweetalert2";
 
 export default function Manage() {
   const [serverDetail, setServerDetail] = useState({})
@@ -15,6 +16,54 @@ export default function Manage() {
   const getServerDetail = (serverId) => {
     UserService.getServerDetail(serverId).then(res => {
       setServerDetail(res.data.result.server)
+    })
+  }
+
+  const shutdownServer = (serverId) => {
+    UserService.shutdownServer(serverId).then((res) => {
+      if (res.data.code === 0) {
+        Swal.fire({
+          icon: 'success',
+          title: res.data.message
+        })
+        getServerDetail(serverId)
+      }
+    })
+  }
+
+  const openServer = (serverId) => {
+    UserService.openServer(serverId).then((res) => {
+      if (res.data.code === 0) {
+        Swal.fire({
+          icon: 'success',
+          title: res.data.message
+        })
+        getServerDetail(serverId)
+      }
+    })
+  }
+
+  const restartServer = () => {
+    alert("restart")
+  }
+
+  const consoleServer = () => {
+    alert("console")
+  }
+
+  const deleteServer = () => {
+    Swal.fire({
+      icon: 'warning',
+      title: 'ต้องการลบเซิร์ฟเวอร์หรือไม่',
+      showCancelButton: true,
+      confirmButtonText: "ตกลง",
+      confirmButtonColor: "#221eaa",
+      cancelButtonText: "ยกเลิก",
+      cancelButtonColor: "#dc3545"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        alert("ลบ")
+      }
     })
   }
   
@@ -67,7 +116,7 @@ export default function Manage() {
                             </div>
                             <div className="mb-3 mb-md-0">
                                 <p className="mb-0"><small><b>Password</b></small></p>
-                                <p className="mb-md-0">{serverDetail.password}</p>
+                                <p className="mb-md-0">{"********"}</p>
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -94,13 +143,15 @@ export default function Manage() {
             <div className="col-md-4 custom-padding">
                 <h5 className="mt-6 mt-md-0 mb-3 mb-md-4">ควบคุมเซิร์ฟเวอร์</h5>
                 <div className="box-white">
-                    <Link to={"/"} className="btn btn-warning mb-2 w-100">รีสตาร์ท</Link>
-                    <Link to={"/"} className="btn btn-danger mb-2 w-100">ปิดเครื่อง</Link>
-                    <Link to={"/"} className="btn btn-dark mb-2 w-100">คอนโซล</Link>
+                    <button className="btn btn-warning mb-2 w-100" onClick={restartServer}>รีสตาร์ท</button>
+                    <button className={serverDetail.status === 1 ? "btn btn-danger mb-2 w-100" : "btn btn-success mb-2 w-100"} onClick={serverDetail.status === 1 ? () => shutdownServer(serverId) : () => openServer(serverId)}>
+                        {serverDetail.status === 1 ? "ปิดเครื่อง" : "เปิดเครื่อง"}
+                    </button>
+                    <button className="btn btn-dark mb-2 w-100" onClick={consoleServer}>คอนโซล</button>
                 </div>
             </div>
         </div>
-        <Link to={"/"} className="btn btn-outline-danger d-inline-block">ลบเซิร์ฟเวอร์</Link>
+        <button className="btn btn-outline-danger d-inline-block" onClick={deleteServer}>ลบเซิร์ฟเวอร์</button>
       </div>
     </div>
   )
