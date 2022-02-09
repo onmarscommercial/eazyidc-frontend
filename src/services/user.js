@@ -37,6 +37,10 @@ class UserService {
   consoleServer() {
 
   }
+
+  deleteServer(serverId) {
+    return axios.post("account/delete-server", { serverId }, { headers: authHeader() })
+  }
 }
 
 export default new UserService();

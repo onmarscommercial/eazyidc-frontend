@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import AddServer from "../assets/images/add-server.png"
 import Sidebar from "./Sidebar";
 import AuthService from "../services/auth"
@@ -20,22 +20,31 @@ export default function Index() {
     if (profile) {
       setCurrentUser(profile)
       getServer()
-      if (profile.profile.status === 0) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'กรุณายืนยันตัวตนของคุณ',
-          html: '<div class="text-start">กรุณายืนยันตัวตนของคุณเพื่อรับจำนวนสำหรับสร้างเซิร์ฟเวอร์เพิ่มเติม</div>',
-          confirmButtonColor: '#221eaa',
-          confirmButtonText: 'ยืนยัน',
-          showCloseButton: true
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/account")
+
+      function getUserStatus() {
+        AuthService.getUserStatus().then((res) => {
+          if (res.data.code === 0) {
+            if (res.data.result === "WV") {
+              Swal.fire({
+                icon: 'warning',
+                title: 'กรุณายืนยันตัวตนของคุณ',
+                html: '<div class="text-start">กรุณายืนยันตัวตนของคุณเพื่อรับจำนวนสำหรับสร้างเซิร์ฟเวอร์เพิ่มเติม</div>',
+                confirmButtonColor: '#221eaa',
+                confirmButtonText: 'ยืนยัน',
+                showCloseButton: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/account")
+                }
+              })        
+            } else if (res.data.result === "A") {
+              setServerMax(3)
+            }
           }
-        })        
-      } else {
-        setServerMax(3)
+        })
       }
+
+      getUserStatus()
     } else {
       navigate('/')
       setCurrentUser(undefined)
@@ -133,7 +142,7 @@ export default function Index() {
           {serverList && serverList.map((server, index) => (
           <div className="box-white d-md-flex" key={index}>
             <div className="d-flex align-items-center tablet-max-width-50">
-              <div className={server.status === 1 ? "server-status online" : "server-status offline"}>
+              <div className={server.onoff === 1 ? "server-status online" : "server-status offline"}>
                 <i className={server.os_type === "Window Server" ? "fab fa-windows" : server.os_type === "Ubuntu" ? "fab fa-ubuntu" : "fab fa-centos"}></i>
               </div>
               <div className="server-info">
@@ -147,8 +156,8 @@ export default function Index() {
             <div className="ms-auto align-self-md-center mt-3 mt-lg-0">
               <Link to={"/manage/" + server.serverId} className="btn btn-primary mobile-w-100 me-2">จัดการ</Link>
               <button className="btn btn-warning d-none d-md-inline me-2" onClick={restartServer}>รีสตาร์ท</button>
-              <button className={server.status === 1 ? "btn btn-danger d-none d-md-inline me-2" : "btn btn-success d-none d-md-inline me-2"} onClick={server.status === 1 ? () => shutdownServer(server.serverId) : () => openServer(server.serverId)}>
-                {server.status === 1 ?"ปิดเครื่อง" : "เปิดเครื่อง"}
+              <button className={server.onoff === 1 ? "btn btn-danger d-none d-md-inline me-2" : "btn btn-success d-none d-md-inline me-2"} onClick={server.onoff === 1 ? () => shutdownServer(server.serverId) : () => openServer(server.serverId)}>
+                {server.onoff === 1 ?"ปิดเครื่อง" : "เปิดเครื่อง"}
               </button>
               <button className="btn btn-dark d-none d-md-inline" onClick={consoleServer}>คอนโซล</button>
             </div>
@@ -156,7 +165,10 @@ export default function Index() {
           ))}
         </div>
       )
-    }
+    } 
+  } else {
+    //navigate('/')
+    return <Navigate to="/"/>
   }
 
   return (

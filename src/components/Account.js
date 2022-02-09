@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import AuthService from "../services/auth"
-import UserService from "../services/user"
+//import UserService from "../services/user"
 import Swal from "sweetalert2";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { faUserShield, faUserCheck, faKey, faIdCard } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from "../config/axios"
@@ -19,6 +19,7 @@ export default function Account() {
   const [publicSshKey, setPublicSshKey] = useState("")
   const [editNameSshKey, setEditNameSshKey] = useState("Name SSH Key")
   const [editPublicSshKey, setEditPublicSshKey] = useState("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCb6Z/VNHzJZ4dbN/NmMYAkE2k8U8viy/ฟ+oauzAyfh1HGg1w/HkYD+2720AOPwdeuVamET1RnlSGyCtguPR4g3uxQt90N5IlqVGLhe+z")
+  const [userStatus, setUserStatus] = useState("")
 
   let navigate = useNavigate()
 
@@ -29,6 +30,17 @@ export default function Account() {
 
     if (user) {
       setCurrentUser(user)
+
+      function getUserStatus() {
+        AuthService.getUserStatus().then((res) => {
+          if (res.data.code === 0) {
+            setUserStatus(res.data.result)
+            console.log(res.data.result);
+          }
+        })
+      }
+
+      getUserStatus()
     } else {
       navigate('/')
     }
@@ -197,38 +209,46 @@ export default function Account() {
               </div>
               <div className="tab-pane fade" id="nav-verify" role="tabpanel" aria-labelledby="nav-verify-tab">
                 <div className="card-no-top-border">
-                  <div className="card-body">
-                    <h5 className="card-title text-center">
-                      <FontAwesomeIcon icon={faIdCard} size="2x"/>
-                      <p className="mt-2">การยืนยันตัวตน</p>
-                    </h5>
-                    <div>
-                      <form onSubmit={handleConfirmVerify} encType="multipart/form-data" >
-                        <div className="text-center mt-2">
-                          เอกสารยืนยันตัวตนของคุณ เช่น บัตรประจำตัวประชาชน, ใบขับขี่ หรือ พาสปอร์ต
-                        </div>
-                        <div className="row mt-4 ms-5 me-5">
-                          <div className="col-md">
-                            <input type="file" id="file" name="file" className="form-control" onChange={onChangeFile} accept=".png,.jpg,.pdf"/>
+                  {userStatus === "WV" ? 
+                    <div className="card-body">
+                      <h5 className="card-title text-center">
+                        <FontAwesomeIcon icon={faIdCard} size="2x"/>
+                        <p className="mt-2">การยืนยันตัวตน</p>
+                      </h5>
+                      <div>
+                        <form onSubmit={handleConfirmVerify} encType="multipart/form-data" >
+                          <div className="text-center mt-2">
+                            เอกสารยืนยันตัวตนของคุณ เช่น บัตรประจำตัวประชาชน, ใบขับขี่ หรือ พาสปอร์ต
                           </div>
-                        </div>
-                        <div className="row mt-5">
-                          <div className="text-center">* เมื่อยืนยันตัวตนสำเร็จ คุณจะสามารถสร้างได้สูงสุด 3 เซิร์ฟเวอร์ *</div>
-                          <div className="col-md mt-4">
-                            <div className="form-check">
-                              <input className="form-check-input" type="checkbox" id="accept" checked={checked} onChange={handleChecked}/>
-                              <label className="form-check-label" htmlFor="accept">ฉันยอมรับว่าเอกสารถูกต้อง และตกลงให้ความยินยอมรวมถึงอนุญาตตามเงื่อนไขที่กำหนดทั้งหมด</label>
+                          <div className="row mt-4 ms-5 me-5">
+                            <div className="col-md">
+                              <input type="file" id="file" name="file" className="form-control" onChange={onChangeFile} accept=".png,.jpg,.pdf"/>
                             </div>
                           </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-md">
-                            <button type="submit" className="btn btn-primary btn-lg w-100 mt-3">ยืนยัน</button>
+                          <div className="row mt-5">
+                            <div className="text-center">* เมื่อยืนยันตัวตนสำเร็จ คุณจะสามารถสร้างได้สูงสุด 3 เซิร์ฟเวอร์ *</div>
+                            <div className="col-md mt-4">
+                              <div className="form-check">
+                                <input className="form-check-input" type="checkbox" id="accept" checked={checked} onChange={handleChecked}/>
+                                <label className="form-check-label" htmlFor="accept">ฉันยอมรับว่าเอกสารถูกต้อง และตกลงให้ความยินยอมรวมถึงอนุญาตตามเงื่อนไขที่กำหนดทั้งหมด</label>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </form>
+                          <div className="row">
+                            <div className="col-md">
+                              <button type="submit" className="btn btn-primary btn-lg w-100 mt-3">ยืนยัน</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div> : 
+                    <div className="card-body">
+                      <div className="card text-white card-body bg-success">
+                        สถานะ: อยู่ระหว่างการตรวจสอบเอกสาร
+                      </div>
+                      
                     </div>
-                  </div>
+                  }
                 </div>
               </div>
               <div className="tab-pane fade" id="nav-sshkey" role="tabpanel" aria-labelledby="nav-sshkey-tab">

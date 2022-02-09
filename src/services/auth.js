@@ -52,6 +52,10 @@ class AuthService {
   changePassword(newPassword, verifyNewPassword) {
     return axios.post("account/change_pwd", { newPassword, verifyNewPassword }, { headers: authHeader() })
   }
+
+  getUserStatus() {
+    return axios.get("account/user-status", { headers: authHeader() })
+  }
 }
 
 export default new AuthService();

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import AuthService from "../services/auth"
+//import AuthService from "../services/auth"
 import UserService from "../services/user"
 import Swal from "sweetalert2";
 
@@ -51,7 +51,7 @@ export default function Manage() {
     alert("console")
   }
 
-  const deleteServer = () => {
+  const deleteServer = (serverId) => {
     Swal.fire({
       icon: 'warning',
       title: 'ต้องการลบเซิร์ฟเวอร์หรือไม่',
@@ -62,7 +62,14 @@ export default function Manage() {
       cancelButtonColor: "#dc3545"
     }).then((result) => {
       if (result.isConfirmed) {
-        alert("ลบ")
+        UserService.deleteServer(serverId).then((res) => {
+          if (res.data.code === 0) {
+            Swal.fire({
+              icon: 'success',
+              title: res.data.message
+            })
+          }
+        })
       }
     })
   }
@@ -151,7 +158,7 @@ export default function Manage() {
                 </div>
             </div>
         </div>
-        <button className="btn btn-outline-danger d-inline-block" onClick={deleteServer}>ลบเซิร์ฟเวอร์</button>
+        <button className="btn btn-outline-danger d-inline-block" onClick={() => deleteServer(serverId)}>ลบเซิร์ฟเวอร์</button>
       </div>
     </div>
   )

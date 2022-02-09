@@ -22,7 +22,7 @@ export default function Register() {
           AuthService.register(email, password, phone, firstname, lastname).then((res) => {
             Swal.fire({
               icon: 'success',
-              title: res.message
+              title: res.data.message
             })
             navigate('/')
           })
@@ -65,7 +65,7 @@ export default function Register() {
 
   return (
     <div className="form-wrapper">
-      <div className="form-box">
+      <div className="form-box mt-0">
         <Link to={"/"} className="sidebar-header text-center">
           <img src={Logo} alt="eazyidc logo"/>
         </Link>
