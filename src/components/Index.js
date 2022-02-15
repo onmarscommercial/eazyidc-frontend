@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddServer from "../assets/images/add-server.png"
 import Sidebar from "./Sidebar";
 import AuthService from "../services/auth"
@@ -112,12 +112,50 @@ export default function Index() {
     })
   }
 
-  const restartServer = (e) => {
-    alert("restart")
+  const restartServer = () => {
+    let timerInterval
+    Swal.fire({
+      title: 'กำลังรีสตาร์ทเซิร์ฟเวอร์',
+      timer: 5000,
+      didOpen: () => {
+        Swal.showLoading()
+        timerInterval = setInterval(() => {
+
+        })
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        //command restart server
+        Swal.fire({
+          icon: 'success',
+          title: "รีสตาร์ทเซิร์ฟเวอร์สำเร็จ"
+        })
+      }
+    })
   }
 
   const consoleServer = () => {
-    alert("console")
+    let timerInterval
+    Swal.fire({
+      title: "กำลังเปิดคอนโซล",
+      timer: 5000,
+      didOpen: () => {
+        Swal.showLoading()
+        timerInterval = setInterval(() => {
+
+        })
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        //command open console
+      }
+    })
   }
 
   let isHaveServer = (
@@ -155,20 +193,19 @@ export default function Index() {
             </div>
             <div className="ms-auto align-self-md-center mt-3 mt-lg-0">
               <Link to={"/manage/" + server.serverId} className="btn btn-primary mobile-w-100 me-2">จัดการ</Link>
-              <button className="btn btn-warning d-none d-md-inline me-2" onClick={restartServer}>รีสตาร์ท</button>
+              <button className="btn btn-warning d-none d-md-inline me-2" onClick={() => restartServer()}>รีสตาร์ท</button>
               <button className={server.onoff === 1 ? "btn btn-danger d-none d-md-inline me-2" : "btn btn-success d-none d-md-inline me-2"} onClick={server.onoff === 1 ? () => shutdownServer(server.serverId) : () => openServer(server.serverId)}>
                 {server.onoff === 1 ?"ปิดเครื่อง" : "เปิดเครื่อง"}
               </button>
-              <button className="btn btn-dark d-none d-md-inline" onClick={consoleServer}>คอนโซล</button>
+              <button className="btn btn-dark d-none d-md-inline" onClick={() => consoleServer()}>คอนโซล</button>
             </div>
           </div>
           ))}
         </div>
       )
-    } 
+    }
   } else {
-    //navigate('/')
-    return <Navigate to="/"/>
+    navigate('/')
   }
 
   return (

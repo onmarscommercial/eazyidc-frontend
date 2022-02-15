@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
-//import AuthService from "../services/auth"
+import AuthService from "../services/auth"
 import UserService from "../services/user"
 import Swal from "sweetalert2";
 
@@ -9,9 +9,18 @@ export default function Manage() {
   const [serverDetail, setServerDetail] = useState({})
   let { serverId } = useParams()
 
+  let navigate = useNavigate()
+
   useEffect(() => {
-    getServerDetail(serverId)
-  }, [serverId])
+    let user = AuthService.getCurrentUser()
+
+    if (user) {
+      getServerDetail(serverId)
+    } else {
+      navigate('/')
+    }
+    
+  }, [navigate, serverId])
 
   const getServerDetail = (serverId) => {
     UserService.getServerDetail(serverId).then(res => {
@@ -44,11 +53,49 @@ export default function Manage() {
   }
 
   const restartServer = () => {
-    alert("restart")
+    let timerInterval
+    Swal.fire({
+      title: 'กำลังรีสตาร์ทเซิร์ฟเวอร์',
+      timer: 5000,
+      didOpen: () => {
+        Swal.showLoading()
+        timerInterval = setInterval(() => {
+
+        })
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        //command restart server
+        Swal.fire({
+          icon: 'success',
+          title: "รีสตาร์ทเซิร์ฟเวอร์สำเร็จ"
+        })
+      }
+    })
   }
 
   const consoleServer = () => {
-    alert("console")
+    let timerInterval
+    Swal.fire({
+      title: "กำลังเปิดคอนโซล",
+      timer: 5000,
+      didOpen: () => {
+        Swal.showLoading()
+        timerInterval = setInterval(() => {
+
+        })
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        //command open console
+      }
+    })
   }
 
   const deleteServer = (serverId) => {
@@ -150,11 +197,11 @@ export default function Manage() {
             <div className="col-md-4 custom-padding">
                 <h5 className="mt-6 mt-md-0 mb-3 mb-md-4">ควบคุมเซิร์ฟเวอร์</h5>
                 <div className="box-white">
-                    <button className="btn btn-warning mb-2 w-100" onClick={restartServer}>รีสตาร์ท</button>
+                    <button className="btn btn-warning mb-2 w-100" onClick={() => restartServer()}>รีสตาร์ท</button>
                     <button className={serverDetail.status === 1 ? "btn btn-danger mb-2 w-100" : "btn btn-success mb-2 w-100"} onClick={serverDetail.status === 1 ? () => shutdownServer(serverId) : () => openServer(serverId)}>
                         {serverDetail.status === 1 ? "ปิดเครื่อง" : "เปิดเครื่อง"}
                     </button>
-                    <button className="btn btn-dark mb-2 w-100" onClick={consoleServer}>คอนโซล</button>
+                    <button className="btn btn-dark mb-2 w-100" onClick={() => consoleServer()}>คอนโซล</button>
                 </div>
             </div>
         </div>

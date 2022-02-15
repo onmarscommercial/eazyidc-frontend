@@ -36,6 +36,8 @@ export default function Sidebar() {
     UserService.getBalance().then((res) => {
       if (res.data.code === 0) {
         setCurrentBalance(res.data.result.balance)
+      } else {
+        AuthService.logout()
       }
     })
   }

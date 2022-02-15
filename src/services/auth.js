@@ -14,7 +14,7 @@ class AuthService {
           status: res.data.status,
           message: res.data.message
         }))
-        localStorage.setItem("login", true);
+        localStorage.setItem("login", JSON.stringify(res.data.result.profile.login));
       } else {
         localStorage.setItem("status", JSON.stringify({
           code: res.data.code,
