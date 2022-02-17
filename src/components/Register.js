@@ -7,11 +7,14 @@ import AuthService from "../services/auth"
 export default function Register() {
   const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
+  const [companyName, setCompanyName] = useState("")
+  const [taxId, setTaxId] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [verifyPassword, setVerifyPassword] = useState("")
   const [phone, setPhone] = useState("")
   const [checked, setChecked] = useState(false)
+  const [customerType, setCustomerType] = useState("O")
   let navigate = useNavigate()
 
   const handleRegister = e => {
@@ -19,12 +22,19 @@ export default function Register() {
     if (checked === true) {
       if (checkPassword(password) === true) {
         if (password === verifyPassword) {
-          AuthService.register(email, password, phone, firstname, lastname).then((res) => {
-            Swal.fire({
-              icon: 'success',
-              title: res.data.message
-            })
-            navigate('/')
+          AuthService.register(email, password, phone, firstname, lastname, customerType, companyName, taxId).then((res) => {
+            if (res.data.code === 0) {
+              Swal.fire({
+                icon: 'success',
+                title: res.data.message
+              })
+              navigate('/')
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: res.data.message
+              })
+            }
           })
         } else {
           Swal.fire({
@@ -63,9 +73,20 @@ export default function Register() {
     }
   }
 
+  const changeCustomerType = e => {
+    setCustomerType(e.target.value)
+  }
+
+  const changeTaxId = e => {
+    const regex = /^[0-9\b]+$/;
+    if (e.target.value === "" || regex.test(e.target.value)) {
+      setTaxId(e.target.value)
+    }
+  }
+
   return (
-    <div className="form-wrapper">
-      <div className="form-box mt-0">
+    <div className="form-register">
+      <div className="form-register-box mt-0">
         <Link to={"/"} className="sidebar-header text-center">
           <img src={Logo} alt="eazyidc logo"/>
         </Link>
@@ -73,12 +94,31 @@ export default function Register() {
         <div className="box-white">
           <form onSubmit={handleRegister}>
             <h4>สมัครสมาชิก</h4>
-            <p className="mb-4">กรุณากรอกข้อมูลให้ถูกต้อง</p>
-            <div className="form-floating mb-3">
+            <p className="mb-2">กรุณากรอกข้อมูลให้ถูกต้อง</p>
+            <fieldset className="mb-3">
+              <legend className="col-form-label">ประเภทธุรกิจ</legend>
+              <div className="form-check form-check-inline">
+                <input className="form-check-input" type="radio" id="ordinary" name="customerType" value="O" checked={customerType === 'O'} onChange={changeCustomerType} />
+                <label className="form-check-label" htmlFor="ordinary">บุคคลธรรมดา</label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input className="form-check-input" type="radio" id="juristic" name="customerType" value="J" checked={customerType === 'J'} onChange={changeCustomerType} />
+                <label className="form-check-label" htmlFor="juristic">นิติบุคคล</label>
+              </div>
+            </fieldset>
+            <div className="form-floating mb-3" style={{display: customerType === "O" ? "none" : ""}}>
+              <input type="text" className="form-control" id="companyName" placeholder="ชื่อบริษัท" value={companyName} onChange={e => setCompanyName(e.target.value)} />
+              <label htmlFor="companyName">ชื่อบริษัท</label>
+            </div>
+            <div className="form-floating mb-3" style={{display: customerType === "O" ? "none" : ""}}>
+              <input type="text" className="form-control" id="taxId" placeholder="เลขประจำตัวผู้เสียภาษี" value={taxId} onChange={changeTaxId} maxLength="13"/>
+              <label htmlFor="taxId">เลขประจำตัวผู้เสียภาษี</label>
+            </div>
+            <div className="form-floating mb-3" style={{display: customerType === "J" ? "none" : ""}}>
               <input type="text" className="form-control" id="firstname" placeholder="ชื่อ" value={firstname} onChange={e => setFirstname(e.target.value)} />
               <label htmlFor="firstname">ชื่อ</label>
             </div>
-            <div className="form-floating mb-3">
+            <div className="form-floating mb-3" style={{display: customerType === "J" ? "none" : ""}}>
               <input type="text" className="form-control" id="lastname" placeholder="นามสกุล" value={lastname} onChange={e => setLastname(e.target.value)} />
               <label htmlFor="lastname">นามสกุล</label>
             </div>

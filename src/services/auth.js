@@ -45,8 +45,8 @@ class AuthService {
     return JSON.parse(localStorage.getItem("login"))
   }
 
-  register(email, password, phone, firstname, lastname) {
-    return axios.post("account/register", { email, password, phone, firstname, lastname })
+  register(email, password, phone, firstname, lastname, customerType, companyName, taxId) {
+    return axios.post("account/register", { email, password, phone, firstname, lastname, customerType, companyName, taxId })
   }
 
   changePassword(newPassword, verifyNewPassword) {
