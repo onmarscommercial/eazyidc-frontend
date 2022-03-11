@@ -10,6 +10,10 @@ class UserService {
     return axios.get("account/package", { headers: authHeader() })
   }
 
+  getPackageBySsdType(ssdType) {
+    return axios.post("account/package-type", { ssdType }, { headers: authHeader() })
+  }
+
   createServer(osType, osVersion, ssdType, packageId, hostName, userName, password) {
     return axios.post("account/create-server", {osType, osVersion, ssdType, packageId, hostName, userName, password}, { headers: authHeader() })
   }

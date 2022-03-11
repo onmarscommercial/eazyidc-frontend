@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 export default function CreateServer() {
     const [os, setOs] = useState("Window Server")
     const [versionOs, setVersionOs] = useState("2012 R2")
-    const [ssdType, setSsdType] = useState("SSD NVME")
+    const [ssdType, setSsdType] = useState("NVME")
     const [packageList, setPackageList] = useState([])
     const [packages, setPackages] = useState(0)
     const [hostName, setHostname] = useState("")
@@ -38,18 +38,28 @@ export default function CreateServer() {
 
     const onSsdTypeChange = e => {
         setSsdType(e.target.value)
+        console.log(e.target.value)
+        getPackage(e.target.value)
     }
 
     const onPackageChange = e => {
         setPackages(e.target.value)
     }
 
-    const getPackage = () => {
-        UserService.getPackage().then((res) => {
-            if (res.data.code === 0) {
-                setPackageList(res.data.result.package)
-            }
-        })
+    const getPackage = (ssdType) => {
+        if (ssdType === undefined) {
+            UserService.getPackage().then((res) => {
+                if (res.data.code === 0) {
+                    setPackageList(res.data.result.package)
+                }
+            })
+        } else {
+            UserService.getPackageBySsdType(ssdType).then((res) => {
+                if (res.data.code === 0) {
+                    setPackageList(res.data.result.package)
+                }
+            })
+        }
     }
 
     const randomText = (length) => {
@@ -201,13 +211,13 @@ export default function CreateServer() {
               <p>เลือกประเภท SSD</p>
               <ul className="nav nav-pills nav-select-server row" id="pills-tab">
                 <li className="nav-item col-md-4 mb-3 mb-md-0">
-                    <input type="radio" className="btn-check" name="options-ssd" id="options-ssd-nvme" autoComplete="off" value="SSD NVME" onChange={onSsdTypeChange} defaultChecked/>
+                    <input type="radio" className="btn-check" name="options-ssd" id="options-ssd-nvme" autoComplete="off" value="NVME" onChange={onSsdTypeChange} checked={ssdType === 'NVME'}/>
                     <label className="btn btn-outline-primary w-100" htmlFor="options-ssd-nvme">
                         <div>SSD NVME</div>
                     </label>
                 </li>
                 <li className="nav-item col-md-4 mb-3 mb-md-0">
-                    <input type="radio" className="btn-check" name="options-ssd" id="options-ssd" autoComplete="off" value="SSD ปกติ" onChange={onSsdTypeChange}/>
+                    <input type="radio" className="btn-check" name="options-ssd" id="options-ssd" autoComplete="off" value="Normal" onChange={onSsdTypeChange} checked={ssdType === 'Normal'}/>
                     <label className="btn btn-outline-primary w-100" htmlFor="options-ssd">
                         <div>SSD ปกติ</div>
                     </label>
