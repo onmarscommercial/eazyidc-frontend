@@ -1,0 +1,24 @@
+{
+  "Balance": "Balance",
+  "Server": "Server",
+  "Topup": "Topup",
+  "Account": "Account",
+  "ContactUs": "Contact Us",
+  "Language": "Language",
+  "Logout": "Logout",
+
+  "Status": "Status",
+  "CreateServer": "Create Server",
+  "NoServer": "No Server",
+  "NotInstance": "You don't seem to have any instances. Please create a server.",
+  
+  "PersonalInformation": "Personal Information",
+  "Email": "Email",
+  "Password": "Password",
+  "TelephoneNumber": "Telephone Number",
+  "ChangePassword": "Change Password",
+  "Cancel": "Cancel",
+  "OldPassword": "Old Password",
+  "NewPassword": "New Password",
+  "ConfirmNewPassword": "Confirm New Password"
+}

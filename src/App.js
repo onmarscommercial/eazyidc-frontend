@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Routes } from "react-router-dom"
 import './assets/css/app.css'
 import Account from "./components/Account";
+import ContactUs from "./components/ContactUs";
 import CreateServer from "./components/CreateServer";
 import ForgotPassword from "./components/ForgotPassword";
 import Index from "./components/Index";
@@ -26,6 +27,7 @@ class App extends Component {
           <Route exact path="/manage/:serverId" element={<Manage />}/>
           <Route exact path="/verify-otp" element={<VerifyOTP />}/>
           <Route exact path="/term-of-service" element={<TermOfService />}/>
+          <Route exact path="/contact-us" element={<ContactUs />} />
         </Routes>
       </div>
     )

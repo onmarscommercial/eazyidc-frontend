@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AddServer from "../assets/images/add-server.png"
 import Sidebar from "./Sidebar";
+import TopMenu from "./TopMenu";
 import AuthService from "../services/auth"
 import UserService from "../services/user"
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 export default function Index() {
   const [currentUser, setCurrentUser] = useState(undefined)
@@ -13,6 +15,7 @@ export default function Index() {
   const [serverMax, setServerMax] = useState(1)
 
   let navigate = useNavigate()
+  const { t } = useTranslation()
 
   useEffect(() => {
     let profile = AuthService.getCurrentUser()
@@ -51,7 +54,7 @@ export default function Index() {
     }
 
     generateBar()
-  }, [navigate, serverCurrent])
+  }, [navigate, serverCurrent, serverMax])
 
   const generateBar = () => {
     const bars = document.querySelectorAll('.progress-bar')
@@ -165,9 +168,9 @@ export default function Index() {
           <img src={AddServer} alt="AddServer"/>
         </div>
         <div>
-          <h3>ไม่มีเซิร์ฟเวอร์</h3>
-          <p>ดูเหมือนว่าคุณยังไม่มีอินสแตนซ์ใดๆ <br className="d-md-none"/>กรุณาสร้างเซิร์ฟเวอร์</p>
-          <Link to={"/create-server"} className="btn btn-primary">สร้างเซิร์ฟเวอร์</Link>
+          <h3>{t('NoServer')}</h3>
+          <p>{t('NotInstance')}</p>
+          <Link to={"/create-server"} className="btn btn-primary">{t('CreateServer')}</Link>
         </div>
       </div>
     </div>
@@ -210,40 +213,43 @@ export default function Index() {
 
   return (
     <div className="wrapper">
-        <Sidebar/>
-        <div id="content">
-          <h3 className="mb-4">สถานะ</h3>
-          <div className="row eazy-row">
-            <div className="col-lg-auto flex-grow-1">
-              <div className="box-white">
-                <div className="d-flex justify-content-between">
-                  <p>เซิร์ฟเวอร์</p>
-                  <p className="number"></p>
+      <Sidebar/>
+        <div id="content-row">
+          <TopMenu />
+          <div id="content">
+            <h3 className="mb-4">{t('Status')}</h3>
+            <div className="row eazy-row">
+              <div className="col-lg-auto flex-grow-1">
+                <div className="box-white">
+                  <div className="d-flex justify-content-between">
+                    <p>{t('Server')}</p>
+                    <p className="number"></p>
+                  </div>
+                  <div className="progress">
+                    <div className="progress-bar" role="progressbar" data-current={serverCurrent} data-max={serverMax} ></div>
+                  </div>
                 </div>
-                <div className="progress">
-                  <div className="progress-bar" role="progressbar" data-current={serverCurrent} data-max={serverMax} ></div>
+              </div>
+              <div className="col-lg-auto flex-grow-1">
+                <div className="box-white">
+                  <div className="d-flex justify-content-between">
+                    <p>SSH Key</p>
+                    <p className="number"></p>
+                  </div>
+                  <div className="progress">
+                    <div className="progress-bar bg-info" role="progressbar" data-current="0" data-max="10"></div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="col-lg-auto flex-grow-1">
-              <div className="box-white">
-                <div className="d-flex justify-content-between">
-                  <p>SSH Key</p>
-                  <p className="number"></p>
-                </div>
-                <div className="progress">
-                  <div className="progress-bar bg-info" role="progressbar" data-current="0" data-max="10"></div>
-                </div>
-              </div>
+
+            <div className="d-flex align-items-center justify-content-between mb-4">
+              <h3 className="mb-0">{t('Server')}</h3>
+              <button type="button" className="btn btn-primary" onClick={createServer}>{t('CreateServer')}</button>
             </div>
-          </div>
 
-          <div className="d-flex align-items-center justify-content-between mb-4">
-            <h3 className="mb-0">เซิร์ฟเวอร์</h3>
-            <button type="button" className="btn btn-primary" onClick={createServer}>สร้างเซิร์ฟเวอร์</button>
+            {isHaveServer}
           </div>
-
-          {isHaveServer}
         </div>
       </div>
   )

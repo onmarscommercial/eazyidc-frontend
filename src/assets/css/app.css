@@ -16248,3 +16248,22 @@ div.firstp {
 .form-register .form-box a {
   color: #221eaa; 
 }
+
+.main-menu .switch-language {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 3px;
+  border-radius: 8px;
+  overflow: hidden;
+  color: #fff !important; 
+}
+
+#content-row {
+  width: 100%;
+}
+
+.top-menu {
+  height: 40px;
+}

@@ -7,10 +7,12 @@ import Profile from "../assets/images/icons/profile.svg"
 import Logout from "../assets/images/icons/logout.svg"
 import AuthService from "../services/auth"
 import UserService from "../services/user"
+import { useTranslation } from "react-i18next";
 
-export default function Sidebar() {
+const Sidebar = () => {
   const location = useLocation();
   const { pathname } = location;
+  const { t } = useTranslation();
   const splitLocation = pathname.split("/");
   let [currentBalance, setCurrentBalance] = useState(0)
   
@@ -46,7 +48,7 @@ export default function Sidebar() {
     toggleMenuMobile();
     const interval = setInterval(() => getBalance(), 500)
     return () => clearInterval(interval)
-  })
+  }, [])
 
   return (
     <div>
@@ -67,7 +69,7 @@ export default function Sidebar() {
           <img src={Logo} alt="eazyidc logo"/>
         </Link>
         <div className="amount-wrapper">
-          <p>ยอดเงินคงเหลือ</p>
+          <p>{t('Balance')}</p>
           <h2>
               <span>{currentBalance.toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
               <small> ฿</small>
@@ -76,22 +78,30 @@ export default function Sidebar() {
         <div className="main-menu">
           <Link to={"/index"} className={splitLocation[1] === "index" ? "menu-link active" : "menu-link"}>
             <img src={Server} alt="Server"/>
-            <span>เซิร์ฟเวอร์</span>
+            <span>{t('Server')}</span>
           </Link>
           <Link to={"/topup"} className={splitLocation[1] === "topup" ? "menu-link active" : "menu-link"}>
             <img src={Wallet} alt="Wallet"/>
-            <span>เติมเงิน</span>
+            <span>{t('Topup')}</span>
           </Link>
           <Link to={"/account"} className={splitLocation[1] === "account" ? "menu-link active" : "menu-link"}>
             <img src={Profile} alt="Profile"/>
-            <span>บัญชีผู้ใช้</span>
+            <span>{t('Account')}</span>
           </Link>
-          <Link to={"/"} className="menu-link mt-auto" onClick={logOut}>
-            <img src={Logout} alt="Logout"/>
-            <span>ออกจากระบบ</span>
-          </Link>
+          <div className="mt-auto">
+            <Link to={"/contact-us"} className="menu-link">
+              <span>{t('ContactUs')}</span>
+            </Link>
+
+            <Link to={"/"} className="menu-link" onClick={logOut}>
+              <img src={Logout} alt="Logout"/>
+              <span>{t('Logout')}</span>
+            </Link>
+          </div>
         </div>
       </nav>
     </div>
   )
-};
+}
+
+export default Sidebar;

@@ -45,6 +45,10 @@ class UserService {
   deleteServer(serverId) {
     return axios.post("account/delete-server", { serverId }, { headers: authHeader() })
   }
+
+  reportProblem(accountId, subject, detail) {
+    return axios.post("account/report-problem", { accountId, subject, detail }, { headers: authHeader() })
+  }
 }
 
 export default new UserService();

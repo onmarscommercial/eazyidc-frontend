@@ -1,0 +1,24 @@
+{
+  "Balance": "ยอดเงินคงเหลือ",
+  "Server": "เซิร์ฟเวอร์",
+  "Topup": "เติมเงิน",
+  "Account": "บัญชีผู้ใช้",
+  "ContactUs": "ติดต่อเรา",
+  "Language": "ภาษา",
+  "Logout": "ออกจากระบบ",
+
+  "Status": "สถานะ",
+  "CreateServer": "สร้างเซิร์ฟเวอร์",
+  "NoServer": "ไม่มีเซิร์ฟเวอร์",
+  "NotInstance": "ดูเหมือนว่าคุณยังไม่มีอินสแตนซ์ใดๆ กรุณาสร้างเซิร์ฟเวอร์",
+  
+  "PersonalInformation": "ข้อมูลส่วนตัว",
+  "Email": "อีเมล์",
+  "Password": "รหัสผ่าน",
+  "TelephoneNumber": "เบอร์โทรศัพท์",
+  "ChangePassword": "เปลี่ยนรหัสผ่าน",
+  "Cancel": "ยกเลิก",
+  "OldPassword": "รหัสผ่านเดิม",
+  "NewPassword": "รหัสผ่านใหม่",
+  "ConfirmNewPassword": "ยืนยันรหัสผ่านใหม่"
+}
