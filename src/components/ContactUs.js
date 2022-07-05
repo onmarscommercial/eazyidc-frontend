@@ -116,7 +116,7 @@ const ContactUs = () => {
                   <textarea className="form-control mt-1" rows="5" id="detail" value={detail} onChange={e => setDetail(e.target.value)}></textarea>
                 </div>
                 <div>
-                  <button type="submit" className="btn btn-primary">Submit</button>
+                  <button type="submit" className="btn btn-eazy">Submit</button>
                 </div>
               </div>
             </form>

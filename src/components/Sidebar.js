@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Logo from "../assets/images/logo.png"
+// import Logo from "../assets/images/logo.png"
+import ShopLogo from "../assets/images/shop_logo_1.png"
 import Server from "../assets/images/icons/server.svg"
 import Wallet from "../assets/images/icons/wallet.svg"
 import Profile from "../assets/images/icons/profile.svg"
@@ -19,7 +20,7 @@ const Sidebar = () => {
   const toggleMenuMobile = () => {
     setTimeout(() => {
       const headerMobile = document.getElementById('menuButton');
-      const sidebar = document.getElementById('sidebar');
+      const sidebar = document.getElementById('eazy-sidebar');
   
       if (headerMobile) {
         headerMobile.addEventListener('click', () => {
@@ -54,7 +55,7 @@ const Sidebar = () => {
     <div>
       <header className="header-mobile">
         <Link to={"/index"} className="sidebar-header mb-0">
-          <img src={Logo} alt="eazyidc logo"/>
+          <img src={ShopLogo} alt="eazyidc logo"/>
         </Link>
         <div id="menuButton">
           <span></span>
@@ -64,36 +65,36 @@ const Sidebar = () => {
         </div>
       </header>
         
-      <nav id="sidebar">
-        <Link to={"/index"} className="sidebar-header d-none d-lg-block">
-          <img src={Logo} alt="eazyidc logo"/>
+      <nav id="eazy-sidebar">
+        <Link to={"/index"} className="sidebar-header d-none d-lg-block mx-auto">
+          <img src={ShopLogo} alt="eazyidc logo"/>
         </Link>
-        <div className="amount-wrapper">
+        <div className="amount-wrapper-eazy">
           <p>{t('Balance')}</p>
           <h2>
               <span>{currentBalance.toLocaleString(undefined, {minimumFractionDigits: 2})}</span>
               <small> ฿</small>
           </h2>
         </div>
-        <div className="main-menu">
-          <Link to={"/index"} className={splitLocation[1] === "index" ? "menu-link active" : "menu-link"}>
+        <div className="main-menu-eazy">
+          <Link to={"/index"} className={splitLocation[1] === "index" ? "menu-link-eazy active" : "menu-link-eazy"}>
             <img src={Server} alt="Server"/>
             <span>{t('Server')}</span>
           </Link>
-          <Link to={"/topup"} className={splitLocation[1] === "topup" ? "menu-link active" : "menu-link"}>
+          <Link to={"/topup"} className={splitLocation[1] === "topup" ? "menu-link-eazy active" : "menu-link-eazy"}>
             <img src={Wallet} alt="Wallet"/>
             <span>{t('Topup')}</span>
           </Link>
-          <Link to={"/account"} className={splitLocation[1] === "account" ? "menu-link active" : "menu-link"}>
+          <Link to={"/account"} className={splitLocation[1] === "account" ? "menu-link-eazy active" : "menu-link-eazy"}>
             <img src={Profile} alt="Profile"/>
             <span>{t('Account')}</span>
           </Link>
           <div className="mt-auto">
-            <Link to={"/contact-us"} className="menu-link">
+            <Link to={"/contact-us"} className={splitLocation[1] === "contact-us" ? "menu-link-eazy active" : "menu-link-eazy"}>
               <span>{t('ContactUs')}</span>
             </Link>
 
-            <Link to={"/"} className="menu-link" onClick={logOut}>
+            <Link to={"/"} className="menu-link-eazy" onClick={logOut}>
               <img src={Logout} alt="Logout"/>
               <span>{t('Logout')}</span>
             </Link>

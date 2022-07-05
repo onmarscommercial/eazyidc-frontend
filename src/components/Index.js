@@ -170,7 +170,7 @@ export default function Index() {
         <div>
           <h3>{t('NoServer')}</h3>
           <p>{t('NotInstance')}</p>
-          <Link to={"/create-server"} className="btn btn-primary">{t('CreateServer')}</Link>
+          <Link to={"/create-server"} className="btn btn-eazy">{t('CreateServer')}</Link>
         </div>
       </div>
     </div>
@@ -195,7 +195,7 @@ export default function Index() {
               </div>
             </div>
             <div className="ms-auto align-self-md-center mt-3 mt-lg-0">
-              <Link to={"/manage/" + server.serverId} className="btn btn-primary mobile-w-100 me-2">จัดการ</Link>
+              <Link to={"/manage/" + server.serverId} className="btn btn-eazy mobile-w-100 me-2">จัดการ</Link>
               <button className="btn btn-warning d-none d-md-inline me-2" onClick={() => restartServer()}>รีสตาร์ท</button>
               <button className={server.onoff === 1 ? "btn btn-danger d-none d-md-inline me-2" : "btn btn-success d-none d-md-inline me-2"} onClick={server.onoff === 1 ? () => shutdownServer(server.serverId) : () => openServer(server.serverId)}>
                 {server.onoff === 1 ?"ปิดเครื่อง" : "เปิดเครื่อง"}
@@ -245,7 +245,7 @@ export default function Index() {
 
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h3 className="mb-0">{t('Server')}</h3>
-              <button type="button" className="btn btn-primary" onClick={createServer}>{t('CreateServer')}</button>
+              <button type="button" className="btn btn-eazy" onClick={createServer}>{t('CreateServer')}</button>
             </div>
 
             {isHaveServer}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import Swal from "sweetalert2";
-import Logo from "../assets/images/logo.png"
+// import Logo from "../assets/images/logo.png"
+import ShopLogo from "../assets/images/Shop_Logo.png"
 import AuthService from "../services/auth"
 
 export default function Login() {
@@ -33,13 +34,12 @@ export default function Login() {
   }
 
   return (
-    <div className="form-wrapper">
+    <div className="form-wrapper-eazy">
       <div className="form-box">
-        <Link to={"/"} className="sidebar-header text-center">
-          <img src={Logo} alt="eazyidc logo"/>
-        </Link>
-
         <div className="box-white">
+          <Link to={"/"} className="sidebar-header text-center">
+            <img src={ShopLogo} alt="eazyidc logo"/>
+          </Link>
           <form onSubmit={handleLogin}>
             <h4 className="mb-4">เข้าสู่ระบบ</h4>
             <div className="form-floating mb-3">
@@ -50,7 +50,7 @@ export default function Login() {
               <input type="password" className="form-control" id="password" placeholder="รหัสผ่าน" value={password} onChange={e => setPassword(e.target.value)}/>
               <label htmlFor="password">รหัสผ่าน</label>
             </div>
-            <button type="submit" className="btn btn-primary btn-lg py-3 w-100 mb-3">เข้าสู่ระบบ</button>
+            <button type="submit" className="btn btn-eazy btn-lg py-3 w-100 mb-3">เข้าสู่ระบบ</button>
           </form>
           <div className="d-flex justify-content-between">
             <Link to={"/forgot-password"}>ลืมรหัสผ่าน</Link>

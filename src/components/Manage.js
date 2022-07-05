@@ -23,7 +23,7 @@ export default function Manage() {
   }, [navigate, serverId])
 
   const getServerDetail = (serverId) => {
-    UserService.getServerDetail(serverId).then(res => {
+    UserService.getServerDetail(serverId).then((res) => {
       setServerDetail(res.data.result.server)
     })
   }
@@ -198,8 +198,8 @@ export default function Manage() {
                 <h5 className="mt-6 mt-md-0 mb-3 mb-md-4">ควบคุมเซิร์ฟเวอร์</h5>
                 <div className="box-white">
                     <button className="btn btn-warning mb-2 w-100" onClick={() => restartServer()}>รีสตาร์ท</button>
-                    <button className={serverDetail.status === 1 ? "btn btn-danger mb-2 w-100" : "btn btn-success mb-2 w-100"} onClick={serverDetail.status === 1 ? () => shutdownServer(serverId) : () => openServer(serverId)}>
-                        {serverDetail.status === 1 ? "ปิดเครื่อง" : "เปิดเครื่อง"}
+                    <button className={serverDetail.onoff === 1 ? "btn btn-danger mb-2 w-100" : "btn btn-success mb-2 w-100"} onClick={serverDetail.onoff === 1 ? () => shutdownServer(serverId) : () => openServer(serverId)}>
+                        {serverDetail.onoff === 1 ? "ปิดเครื่อง" : "เปิดเครื่อง"}
                     </button>
                     <button className="btn btn-dark mb-2 w-100" onClick={() => consoleServer()}>คอนโซล</button>
                 </div>

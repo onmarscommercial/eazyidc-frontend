@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import Swal from "sweetalert2";
-import Logo from "../assets/images/logo.png"
+// import Logo from "../assets/images/logo.png"
+import ShopLogo from "../assets/images/Shop_Logo.png"
 import AuthService from "../services/auth"
 
 export default function Register() {
@@ -85,13 +86,12 @@ export default function Register() {
   }
 
   return (
-    <div className="form-register">
-      <div className="form-register-box mt-0">
-        <Link to={"/"} className="sidebar-header text-center">
-          <img src={Logo} alt="eazyidc logo"/>
-        </Link>
-
+    <div className="form-register-eazy">
+      <div className="form-register-box-eazy mt-4">
         <div className="box-white">
+          <Link to={"/"} className="sidebar-header text-center">
+            <img src={ShopLogo} alt="eazyidc logo"/>
+          </Link>
           <form onSubmit={handleRegister}>
             <h4>สมัครสมาชิก</h4>
             <p className="mb-2">กรุณากรอกข้อมูลให้ถูกต้อง</p>
@@ -144,7 +144,7 @@ export default function Register() {
                 ฉันได้อ่านและยอมรับ <Link to={"/term-of-service"}>เงื่อนไขและข้อตกลงการให้บริการ</Link>
               </label>
             </div>
-            <button type="submit" className="btn btn-primary btn-lg py-3 w-100 mb-3">สมัครสมาชิก</button>
+            <button type="submit" className="btn btn-eazy btn-lg py-3 w-100 mb-3">สมัครสมาชิก</button>
             <Link to={"/"} className="btn btn-light btn-lg w-100">ย้อนกลับ</Link>
           </form>
         </div>

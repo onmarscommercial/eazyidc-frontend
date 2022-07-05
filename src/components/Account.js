@@ -151,13 +151,13 @@ export default function Account() {
             <div className="col-xl-7">
               <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                  <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">
+                  <button className="nav-link-eazy active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">
                     <FontAwesomeIcon icon={faUserShield} /> {t('Account')}
                   </button>
-                  <button className="nav-link" id="nav-verify-tab" data-bs-toggle="tab" data-bs-target="#nav-verify" type="button" role="tab" aria-controls="nav-verify" aria-selected="false" style={{ display: userStatus !== "A" ? "" : "none" }}>
+                  <button className="nav-link-eazy" id="nav-verify-tab" data-bs-toggle="tab" data-bs-target="#nav-verify" type="button" role="tab" aria-controls="nav-verify" aria-selected="false" style={{ display: userStatus !== "A" ? "" : "none" }}>
                     <FontAwesomeIcon icon={faUserCheck} /> การยืนยันตัวตน
                   </button>
-                  <button className="nav-link" id="nav-sshkey-tab" data-bs-toggle="tab" data-bs-target="#nav-sshkey" type="button" role="tab" aria-controls="nav-sshkey" aria-selected="false">
+                  <button className="nav-link-eazy" id="nav-sshkey-tab" data-bs-toggle="tab" data-bs-target="#nav-sshkey" type="button" role="tab" aria-controls="nav-sshkey" aria-selected="false">
                     <FontAwesomeIcon icon={faKey} /> SSH Keys
                   </button>
                 </div>
@@ -179,7 +179,7 @@ export default function Account() {
                         <p className="col-5 text-end text-secondary mb-2">{t('TelephoneNumber')}</p>
                         <p className="col col-xl-7 mb-2">{phone}</p>
                       </div>
-                      <button type="button" className="btn btn-primary btn-lg w-100 mt-3" data-bs-toggle="modal" data-bs-target="#changePassword">{t('ChangePassword')}</button>
+                      <button type="button" className="btn btn-eazy btn-lg w-100 mt-3" data-bs-toggle="modal" data-bs-target="#changePassword">{t('ChangePassword')}</button>
                   
                       <div className="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
                         <div className="modal-dialog modal-dialog-centered">
@@ -202,7 +202,7 @@ export default function Account() {
                                   <input type="password" className="form-control" id="verify-new-password" placeholder="ยืนยันรหัสผ่านใหม่" value={verifyNewPassword} onChange={e => setVerifyNewPassword(e.target.value)} />
                                   <label htmlFor="verify-new-password">{t('ConfirmNewPassword')}</label>
                                 </div>
-                                <button type="submit" className="btn btn-primary btn-lg w-100 mb-3">{t('ChangePassword')}</button>
+                                <button type="submit" className="btn btn-eazy btn-lg w-100 mb-3">{t('ChangePassword')}</button>
                                 <button type="button" className="btn btn-outline-primary btn-lg w-100" data-bs-dismiss="modal">{t('Cancel')}</button>
                               </form>
                             </div>
@@ -241,7 +241,7 @@ export default function Account() {
                             </div>
                             <div className="row">
                               <div className="col-md">
-                                <button type="submit" className="btn btn-primary btn-lg w-100 mt-3">ยืนยัน</button>
+                                <button type="submit" className="btn btn-eazy btn-lg w-100 mt-3">ยืนยัน</button>
                               </div>
                             </div>
                           </form>
@@ -314,7 +314,7 @@ export default function Account() {
                         </div>
                       </div>
 
-                      <button type="button" className="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#createSsh">เพิ่ม SSH Key</button>
+                      <button type="button" className="btn btn-eazy btn-lg w-100" data-bs-toggle="modal" data-bs-target="#createSsh">เพิ่ม SSH Key</button>
 
                       {/* Create Modal */}
                       <div className="modal fade" id="createSsh" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1">
@@ -334,7 +334,7 @@ export default function Account() {
                                               <textarea className="form-control" id="ssh-public-key" placeholder="Public Key" value={publicSshKey} onChange={e => setPublicSshKey(e.target.value)}></textarea>
                                               <label htmlFor="ssh-public-key">Public Key</label>
                                           </div>
-                                          <button type="button" className="btn btn-primary btn-lg w-100 mb-3">เพิ่ม SSH Key</button>
+                                          <button type="button" className="btn btn-eazy btn-lg w-100 mb-3">เพิ่ม SSH Key</button>
                                           <button type="button" className="btn btn-outline-primary btn-lg w-100" data-bs-dismiss="modal">ยกเลิก</button>
                                       </form>
                                   </div>
@@ -360,7 +360,7 @@ export default function Account() {
                                             <textarea className="form-control" id="ssh-public-key-edit" placeholder="Public Key" style={{ height: '130px' }} value={editPublicSshKey} onChange={e => setEditPublicSshKey(e.target.value)}></textarea>
                                             <label htmlFor="ssh-public-key-edit">Public Key</label>
                                         </div>
-                                        <button type="button" className="btn btn-primary btn-lg w-100 mb-3">แก้ไข SSH Key</button>
+                                        <button type="button" className="btn btn-eazy btn-lg w-100 mb-3">แก้ไข SSH Key</button>
                                         <button type="button" className="btn btn-outline-primary btn-lg w-100" data-bs-dismiss="modal">ยกเลิก</button>
                                     </form>
                                 </div>

@@ -117,7 +117,7 @@ export default function CreateServer() {
 				<div id="content">
 					<div className="d-flex align-items-center justify-content-between mb-4">
 						<h3 className="mb-0">สร้างเซิร์ฟเวอร์</h3>
-						<Link to={"/index"} className="btn btn-outline-primary">ย้อนกลับ</Link>
+						<Link to={"/index"} className="btn btn-outline-eazy">ย้อนกลับ</Link>
 					</div>
 
 					<form onSubmit={handleCreateServer}>
@@ -493,7 +493,7 @@ export default function CreateServer() {
 								</div>
 							</div>
 						</div>
-						<button type="submit" className="btn btn-primary btn-lg">สร้างเซิร์ฟเวอร์</button>
+						<button type="submit" className="btn btn-eazy btn-lg">สร้างเซิร์ฟเวอร์</button>
 					</form>
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom"
-import Logo from "../assets/images/logo.png"
+// import Logo from "../assets/images/logo.png"
+import ShopLogo from "../assets/images/Shop_Logo.png"
 
 class ForgotPassword extends Component {
   handleResetPassword() {
@@ -9,13 +10,13 @@ class ForgotPassword extends Component {
   
   render() {
     return (
-      <div className="form-wrapper">
+      <div className="form-wrapper-eazy">
         <div className="form-box">
-          <Link to={"/"} className="sidebar-header text-center">
-            <img src={Logo} alt="eazyidc logo"/>
-          </Link>
-
           <div className="box-white">
+            <Link to={"/"} className="sidebar-header text-center">
+              <img src={ShopLogo} alt="eazyidc logo"/>
+            </Link>
+
             <form>
               <h4>ลืมรหัสผ่าน</h4>
               <p className="mb-4">กรุณากรอกข้อมูลให้ถูกต้องเพื่อรีเซ็ตรหัสผ่าน</p>
@@ -28,7 +29,7 @@ class ForgotPassword extends Component {
                 <label htmlFor="tel">เบอร์โทรศัพท์</label>
               </div>
 
-              <button type="submit" className="btn btn-primary btn-lg py-3 w-100 mb-3">รีเซ็ตรหัสผ่าน</button>
+              <button type="submit" className="btn btn-eazy btn-lg py-3 w-100 mb-3">รีเซ็ตรหัสผ่าน</button>
               <Link to={"/"} className="btn btn-light btn-lg w-100">ย้อนกลับ</Link>
             </form>
           </div>

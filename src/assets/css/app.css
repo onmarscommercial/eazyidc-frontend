@@ -16267,3 +16267,318 @@ div.firstp {
 .top-menu {
   height: 40px;
 }
+
+.header-item {
+  height: 70px;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  color: #555b6d;
+  border: 0;
+}
+
+/* eazyidc theme */
+
+.btn-eazy {
+  color: #fff;
+  background-color: #E69D72;
+  border-color: #E69D72;
+}
+
+.btn-outline-eazy {
+  color: #fff;
+  background-color: #E69D72;
+}
+
+.form-wrapper-eazy {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(43deg, #E69D72 0%, #7D6489 52%, #2F4858 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-wrapper-eazy .form-box {
+  width: 480px;
+  margin-top: -10vh;
+  padding: 0 12px; 
+}
+
+.form-wrapper-eazy .form-box .sidebar-header img {
+  width: 200px;
+}
+
+.form-wrapper-eazy .form-box a {
+  color: #4E5876; 
+}
+
+.amount-wrapper-eazy {
+  padding: 16px 32px;
+  margin-left: -16px;
+  margin-right: -16px;
+  background-color: #E69D72;
+}
+
+.amount-wrapper-eazy h2, .amount-wrapper-eazy .h2 {
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.amount-wrapper-eazy h2 small, .amount-wrapper-eazy .h2 small, .amount-wrapper-eazy h2 .small, .amount-wrapper-eazy .h2 .small {
+  font-size: 16px;
+  font-weight: 400; 
+}
+
+.amount-wrapper-eazy p {
+  font-size: 14px;
+  margin-bottom: 2px;
+  color: rgba(255, 255, 255, 0.9); 
+}
+
+@media only screen and (min-width: 1024px) {
+  .amount-wrapper-eazy {
+    background-image: linear-gradient(225deg, #D48181 0%, #E69D72 100%); 
+  }
+}
+
+.main-menu-eazy {
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  height: 100%; 
+}
+
+.main-menu-eazy .menu-link-eazy {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 3px;
+  border-radius: 8px;
+  overflow: hidden;
+  color: #fff !important;
+}
+
+.main-menu-eazy .menu-link-eazy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(225deg, #4E5876 0%, #2F4858 100%);
+  opacity: 0;
+  transition: all 0.3s linear;
+  z-index: 0; 
+}
+
+.main-menu-eazy .menu-link-eazy img {
+  position: relative;
+  margin-right: 16px;
+  z-index: 1; 
+}
+
+.main-menu-eazy .menu-link-eazy span {
+  position: relative;
+  z-index: 1;
+}
+
+.main-menu-eazy .menu-link-eazy.active::before, .main-menu-eazy .menu-link-eazy:hover::before {
+  opacity: 1; 
+}
+
+#eazy-sidebar {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 80vw;
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background-image: linear-gradient(225deg, #2F4858 -20%, #7D6489 30%, #E69D72 100%);
+  -webkit-backdrop-filter: blur(7px) brightness(0.6);
+  backdrop-filter: blur(7px) brightness(0.6);
+  transform: translateX(80vw);
+  transition: all 0.3s linear;
+  z-index: 999; 
+}
+
+#eazy-sidebar.show-menu {
+  transform: translateX(0); 
+}
+
+@media only screen and (min-width: 768px) {
+  #eazy-sidebar {
+    width: 235px;
+    transform: translateX(235px); 
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #eazy-sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: auto;
+    bottom: auto;
+    min-width: 235px;
+    height: 100vh;
+    -webkit-backdrop-filter: blur(0) brightness(1);
+    backdrop-filter: blur(0) brightness(1);
+    background-image: linear-gradient(225deg, #2F4858 -20%, #7D6489 30%, #E69D72 100%);
+    transform: translateX(0);
+    color: #fff; 
+  }
+}
+
+.nav-payment-eazy .nav-item-eazy {
+  margin-bottom: 16px;
+}
+
+.nav-payment-eazy .nav-item-eazy .nav-link-eazy {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: #2F4858;
+  border: 1px solid #E69D72; 
+}
+
+.nav-payment-eazy .nav-item-eazy .nav-link-eazy .active {
+  color: #fff; 
+}
+
+.nav-payment-eazy .nav-item-eazy .nav-link-eazy .material-icons-outlined {
+  margin-right: 16px; 
+}
+
+.nav-link-eazy {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #E69D72;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link-eazy {
+    transition: none;
+  }
+}
+
+.nav-link-eazy:hover, .nav-link-eazy:focus {
+  color: #2F4858; 
+}
+
+.nav-link-eazy.disabled {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default; 
+}
+
+.nav-tabs .nav-link-eazy {
+  margin-bottom: -1px;
+  background: none;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem; 
+}
+
+.nav-tabs .nav-link-eazy:hover, .nav-tabs .nav-link-eazy:focus {
+  border-color: #DFE0DF #DFE0DF #dee2e6;
+  isolation: isolate; 
+}
+.nav-tabs .nav-link-eazy.disabled {
+  color: #6c757d;
+  background-color: transparent;
+  border-color: transparent; 
+}
+.nav-tabs .nav-link-eazy.active,
+.nav-tabs .nav-item.show .nav-link-eazy {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff; 
+}
+
+.nav-tabs .dropdown-menu {
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; 
+}
+
+.nav-pills .nav-link-eazy {
+  background: none;
+  border: 0;
+  border-radius: 0.25rem; 
+}
+.nav-pills .nav-link-eazy.active,
+.nav-pills .show > .nav-link-eazy {
+  color: #fff;
+  background-color: #2F4858; 
+}
+
+.nav-fill > .nav-link-eazy,
+.nav-fill .nav-item-eazy {
+  flex: 1 1 auto;
+  text-align: center; 
+}
+
+.nav-justified > .nav-link-eazy,
+.nav-justified .nav-item-eazy {
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: center; 
+}
+
+.nav-fill .nav-item-eazy .nav-link-eazy,
+.nav-justified .nav-item-eazy .nav-link-eazy {
+  width: 100%; 
+}
+
+.form-register-eazy {
+  width: 100%;
+  height: auto;
+  background-image: linear-gradient(43deg, #E69D72 0%, #7D6489 52%, #2F4858 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-register-eazy .form-register-box-eazy {
+  width: 480px;
+  margin-top: -10vh;
+  padding: 0 10px; 
+}
+
+.form-register-eazy .form-register-box-eazy .sidebar-header img {
+  width: 200px;
+}
+
+.form-register-eazy .form-register-box-eazy a {
+  color: #2F4858;
+}
+
+.form-term-of-service-eazy {
+  width: 100%;
+  height: auto;
+  background-image: linear-gradient(43deg, #E69D72 0%, #7D6489 52%, #2F4858 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-term-of-service-eazy .form-term-of-service-box-eazy {
+  width: 1000px;
+}
+
+.form-term-of-service-eazy .form-term-of-service-box-eazy .sidebar-header img {
+  width: 200px;
+}
+
+.form-term-of-service-box-white-eazy {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px 0 rgba(46, 85, 197, 0.07);
+}
+
+/* eazyidc theme */

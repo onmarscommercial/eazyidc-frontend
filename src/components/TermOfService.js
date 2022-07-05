@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/images/logo.png"
+// import Logo from "../assets/images/logo.png"
+import ShopLogo from "../assets/images/Shop_Logo.png"
 
 class TermOfService extends Component {
   render() {
     return (
-      <div className="form-term-of-service">
-        <div className="form-term-of-service-box">
-          <Link to={"/"} className="sidebar-header text-center">
-            <img src={Logo} alt="eazyidc logo"/>
-          </Link>
-          <div className="form-term-of-service-box-white ms-4 me-4 pt-2 pb-2">
+      <div className="form-term-of-service-eazy">
+        <div className="form-term-of-service-box-eazy">
+          <div className="form-term-of-service-box-white-eazy mt-4 mb-4 ms-4 me-4 pt-2 pb-2">
+            <Link to={"/"} className="sidebar-header text-center">
+              <img src={ShopLogo} alt="eazyidc logo"/>
+            </Link>
             <h4 className="text-center mt-3">TERMS OF SERVICE</h4>
             <h5 className="text-center">(เงื่อนไขการให้บริการ)</h5>
             <div className="ms-4 me-4 mt-4">
