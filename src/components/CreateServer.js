@@ -125,7 +125,7 @@ export default function CreateServer() {
 							<p>เลือกระบบปฏิบัติการ (OS)</p>
 							<ul className="nav nav-pills nav-select-server row mb-4" id="pills-tab" role="tablist">
 								<li className="nav-item col-md-4 mb-3 mb-md-0" role="presentation">
-									<input type="radio" className="btn-check" name="options-os" id="options-windows" autoComplete="off" data-bs-toggle="pill" data-bs-target="#pills-windows" value="Window Server" onChange={onOsChange} defaultChecked/>
+									<input type="radio" className="btn-check" name="options-os" id="options-windows" autoComplete="off" data-bs-toggle="pill" data-bs-target="#pills-windows" value="Windows Server" onChange={onOsChange} defaultChecked/>
 									<label className="btn btn-outline-primary" htmlFor="options-windows">
 											<i className="fab fa-windows"></i>
 											<div>Windows Server</div>

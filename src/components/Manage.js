@@ -115,6 +115,7 @@ export default function Manage() {
               icon: 'success',
               title: res.data.message
             })
+            navigate('/index')
           }
         })
       }

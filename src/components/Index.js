@@ -184,7 +184,7 @@ export default function Index() {
           <div className="box-white d-md-flex" key={index}>
             <div className="d-flex align-items-center tablet-max-width-50">
               <div className={server.onoff === 1 ? "server-status online" : "server-status offline"}>
-                <i className={server.os_type === "Window Server" ? "fab fa-windows" : server.os_type === "Ubuntu" ? "fab fa-ubuntu" : "fab fa-centos"}></i>
+                <i className={server.os_type === "Windows Server" ? "fab fa-windows" : server.os_type === "Ubuntu" ? "fab fa-ubuntu" : "fab fa-centos"}></i>
               </div>
               <div className="server-info">
                 <h5>{server.hostname}</h5>
